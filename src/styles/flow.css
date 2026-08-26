@@ -1,0 +1,193 @@
+/* ============================================================
+   FLOW — el rail interactivo, tomado del motor de los review decks
+   (engine/flow.css de solvo-review-decks) y adaptado a una página con scroll.
+
+   Diferencia deliberada con el deck: acá el rail va ARRIBA y el detalle
+   debajo. En una presentación el texto grande manda; en un dashboard, lo
+   primero que se necesita es ver el pipeline completo de un vistazo y recién
+   después entrar a un paso.
+
+   Un mismo rail sirve para los pasos de una automatización y para las
+   pantallas de una web app: el modelo de interacción del sitio es uno solo.
+   ============================================================ */
+
+.flow { display: flex; flex-direction: column; gap: var(--space-6); }
+
+/* ---- Rail --------------------------------------------------- */
+.flow-rail { --node: 46px; position: relative; padding: var(--space-6) var(--space-2) var(--space-2); user-select: none; }
+
+.flow-track {
+  position: absolute; left: calc(var(--space-2) + var(--node) / 2); right: calc(var(--space-2) + var(--node) / 2);
+  top: calc(var(--space-6) + var(--node) / 2); height: 3px; transform: translateY(-1.5px);
+  background: var(--line); border-radius: 3px; overflow: hidden;
+}
+.flow-track .fill {
+  position: absolute; left: 0; top: 0; height: 100%; width: 0;
+  background: var(--grad-heat); border-radius: 3px;
+  transition: width .45s var(--ease);
+}
+.flow-track .pulse {
+  position: absolute; top: 50%; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--energy); box-shadow: 0 0 8px 2px rgba(241, 149, 86, .55);
+  transform: translate(-50%, -50%); opacity: .85;
+  animation: pulseRun 3.2s linear infinite;
+}
+@keyframes pulseRun { from { left: 0%; } to { left: 100%; } }
+
+.flow-nodes { position: relative; display: flex; justify-content: space-between; }
+.flow-node {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+  width: calc(100% / var(--n)); padding: 0 var(--space-1); background: transparent; border: 0; color: inherit;
+}
+.flow-node .fn-dot {
+  width: var(--node); height: var(--node); border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-heading); font-weight: var(--font-bold); font-size: var(--text-lg);
+  color: var(--ink-3); background: var(--surface); border: 2px solid var(--line-strong);
+  box-shadow: var(--shadow-card);
+  transition: transform .35s var(--ease), border-color .3s, box-shadow .3s, color .3s, background .3s;
+}
+.flow-node .fn-label {
+  font-family: var(--font-heading); font-weight: var(--font-semibold); font-size: var(--text-xs);
+  line-height: var(--leading-snug); color: var(--ink-3); max-width: 16ch; text-align: center;
+  transition: color .3s;
+}
+.flow-node:hover .fn-dot { border-color: var(--energy); transform: translateY(-3px); }
+.flow-node:hover .fn-label { color: var(--ink-2); }
+.flow-node:focus-visible { outline: none; }
+.flow-node:focus-visible .fn-dot { outline: 2px solid var(--work); outline-offset: 3px; }
+
+/* El nodo activo florece */
+.flow-node.is-active .fn-dot {
+  color: #fff; background: linear-gradient(135deg, #F7B886, #E07E3A);
+  border-color: #F19556;
+  box-shadow: 0 0 0 6px rgba(241, 149, 86, .16), 0 10px 22px rgba(224, 126, 58, .34);
+  transform: translateY(-4px) scale(1.06);
+}
+.flow-node.is-active .fn-label { color: var(--ink); }
+.flow-node.done .fn-dot { border-color: var(--color-primary-300); color: var(--energy-d); background: var(--color-primary-50); }
+
+/* El nodo que tiene IA lleva su marca antes de abrirlo */
+.flow-node .fn-ia {
+  position: absolute; top: -10px; right: 50%; margin-right: calc(var(--node) / -2 - 2px);
+  width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 11px; color: var(--ia-ink); background: var(--ia-tint); border: 1px solid var(--ia-line);
+}
+
+/* ---- Panel del paso activo ---------------------------------- */
+.flow-panel {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-8); box-shadow: var(--shadow-card);
+}
+.flow-panel.swap .fp-in { animation: fpIn .42s var(--ease); }
+@keyframes fpIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.fp-step {
+  font-family: var(--font-data); font-weight: var(--font-semibold); font-size: 11px;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--ink-3);
+  display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+}
+.fp-step .num { color: var(--energy-d); }
+.fp-title { font-size: var(--text-2xl); font-weight: var(--font-bold); letter-spacing: var(--tracking-tight); margin-top: var(--space-2); }
+.fp-desc { font-size: var(--text-lg); color: var(--ink-2); line-height: var(--leading-relaxed); margin-top: var(--space-3); max-width: 70ch; }
+.fp-tempo { margin-left: auto; font-family: var(--font-data); font-size: var(--text-xs); color: var(--ink-3); }
+
+/* ---- Secciones del panel ------------------------------------ */
+/* Dos registros, uno por audiencia: "Qué pasa" en lenguaje llano para
+   cualquiera, y debajo la mecánica —acciones, reglas y sistemas— para quien
+   necesita el detalle técnico. Nadie tiene que leer lo que no le sirve. */
+
+.fp-sec { margin-top: var(--space-6); }
+.fp-sec h4 {
+  font-family: var(--font-data); font-size: 10px; font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: var(--space-3);
+}
+
+/* El registro llano: tipografía más grande y sin viñetas. */
+.fp-llano { margin-top: var(--space-5); }
+.fp-llano p { font-size: var(--text-lg); color: var(--ink); line-height: var(--leading-relaxed); max-width: 74ch; }
+
+/* Entrada y salida: una franja, no dos cajas del mismo peso que el mecanismo.
+   Son sustantivos cortos — el dato que entra y el que sale. */
+.fp-io {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-5); align-items: start;
+  margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-sunken);
+}
+.io-lado h4 {
+  font-family: var(--font-data); font-size: 10px; font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-2);
+}
+.io-lado li, .io-lado p { font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug); margin-bottom: var(--space-1); }
+.io-lado li:last-child { margin-bottom: 0; }
+.io-flecha { color: var(--line-strong); font-size: var(--text-xl); line-height: 1.6; }
+
+/* La mecánica: qué hace y bajo qué reglas, en paralelo. */
+.fp-mecanica { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; }
+.fp-mecanica .fp-sec { margin-top: var(--space-6); }
+
+.fp-acciones { counter-reset: paso; display: flex; flex-direction: column; gap: var(--space-3); }
+.fp-acciones li {
+  counter-increment: paso; position: relative; padding-left: var(--space-8);
+  font-size: var(--text-sm); color: var(--ink); line-height: var(--leading-snug);
+}
+.fp-acciones li::before {
+  content: counter(paso); position: absolute; left: 0; top: -1px;
+  width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-data); font-size: 10px; font-weight: var(--font-bold);
+  color: var(--work-ink); background: var(--work-tint); border: 1px solid var(--work-line);
+}
+
+/* Las reglas son condiciones, no acciones: marca distinta, no numerada. */
+.fp-reglas { display: flex; flex-direction: column; gap: var(--space-3); }
+.fp-reglas li {
+  position: relative; padding-left: var(--space-5);
+  font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug);
+}
+.fp-reglas li::before {
+  content: '▸'; position: absolute; left: 0; top: -1px; color: var(--ink-3); font-size: var(--text-sm);
+}
+
+/* Listas neutras (el contenido y las funciones de una pantalla). El ▸ queda
+   reservado para las reglas: si marcara cualquier lista dejaría de significar algo. */
+.fp-items { display: flex; flex-direction: column; gap: var(--space-3); }
+.fp-items li {
+  position: relative; padding-left: var(--space-5);
+  font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug);
+}
+.fp-items li::before {
+  content: ''; position: absolute; left: 0; top: .55em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong);
+}
+
+/* Con qué sistemas trabaja: el anclaje técnico, siempre con nombres genéricos. */
+.fp-chips { margin-top: var(--space-6); display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.fp-chips .tag { margin-right: var(--space-2); }
+.chip {
+  display: inline-flex; align-items: center; padding: 3px var(--space-3);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-full);
+  font-size: var(--text-xs); color: var(--ink-2); background: var(--surface);
+}
+
+.fp-rama { margin-top: var(--space-4); font-size: var(--text-sm); color: var(--ink-3); }
+.fp-rama a { color: var(--work-ink); font-weight: var(--font-semibold); }
+.fp-rama a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .flow-rail { overflow-x: auto; }
+  .flow-nodes { min-width: 620px; }
+  .flow-track { display: none; }
+  .fp-io { grid-template-columns: 1fr; gap: var(--space-4); }
+  /* Apiladas, las etiquetas Entra/Sale ya cargan la dirección: la flecha sobra. */
+  .io-flecha { display: none; }
+  .fp-mecanica { grid-template-columns: 1fr; gap: 0; }
+  .flow-panel { padding: var(--space-5); }
+}
+
+/* Las pantallas de una app no son una secuencia: sin barra de avance ni pulso.
+   Solo los pasos de un pipeline llevan progreso, porque ahí el orden importa. */
+.flow[data-tipo='pagina'] .flow-track .fill,
+.flow[data-tipo='pagina'] .flow-track .pulse { display: none; }
+.flow[data-tipo='pagina'] .fn-dot { font-size: 0; }
+.flow[data-tipo='pagina'] .glyph { width: 24px; height: 19px; opacity: .9; }

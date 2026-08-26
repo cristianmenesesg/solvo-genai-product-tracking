@@ -1,0 +1,188 @@
+{
+  "flujo": {
+    "titulo": "El research de una empresa y sus decisores",
+    "resultado": "La empresa queda con su perfil completo, su sales pitch y sus señales de negocio, y con una lista de decisores cuyos emails fueron verificados uno por uno antes de guardarse.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Recibir el pedido de investigación",
+        "nota": "Por demanda · responde al instante",
+        "quePasa": "El pipeline no corre por horario: se activa cuando alguien lo pide, sea el lote diario del cold outreach o un clic de un comercial en la plataforma. Responde de inmediato y sigue investigando por detrás.",
+        "entra": [
+          "Los identificadores de las empresas a investigar, ya registradas en el ecosistema",
+          "La identidad de quién lo pide: el ciclo de cold email o un usuario de la plataforma"
+        ],
+        "sale": [
+          "La confirmación inmediata al invocador y la lista de empresas que entran a investigarse"
+        ],
+        "acciones": [
+          "Confirma el pedido al instante, sin hacer esperar a quien lo pidió",
+          "Toma las empresas del pedido y arranca la investigación en segundo plano"
+        ],
+        "reglas": [
+          "Solo entran las empresas que todavía no fueron investigadas",
+          "La empresa tiene que existir antes en el ecosistema: el pipeline no acepta datos sueltos como nombre o dominio",
+          "Si no puede leer las empresas pedidas, avisa el error a quien invocó en lugar de fallar en silencio"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Consultar la fuente principal de datos de empresa",
+        "quePasa": "Se busca el perfil de la empresa en la base de datos comercial que cubre a la mayoría de las organizaciones.",
+        "entra": [
+          "El nombre de la empresa y su dominio, si se conoce"
+        ],
+        "sale": [
+          "Industria, tamaño, ingresos, ubicación y presencia en redes profesionales"
+        ],
+        "acciones": [
+          "Pide el perfil completo de la organización a partir de su dominio"
+        ],
+        "reglas": [
+          "Cuando no se conoce el dominio, primero se lo descubre a partir del nombre"
+        ],
+        "trabajaCon": [
+          "Fuentes de datos de empresas"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Completar lo que falte, solo si falta",
+        "quePasa": "Antes de pagar por una segunda fuente, el sistema evalúa si lo que ya tiene alcanza. Solo escala cuando hace falta, y así el costo queda acotado.",
+        "entra": [
+          "El perfil devuelto por la fuente principal"
+        ],
+        "sale": [
+          "El material de investigación reunido, con el costo acotado a lo que hizo falta"
+        ],
+        "acciones": [
+          "Evalúa si los datos alcanzan para armar un perfil útil"
+        ],
+        "reglas": [
+          "Si los datos alcanzan, pasa directo a la síntesis y no consulta nada más",
+          "Si no alcanzan, activa una segunda fuente que investiga en buscadores, el sitio oficial y las redes profesionales",
+          "Si la empresa directamente no aparece en la fuente principal, la segunda pasa a ser la primaria"
+        ],
+        "trabajaCon": [
+          "Fuentes de datos de empresas"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Unificar todo en un perfil utilizable",
+        "quePasa": "Un modelo toma el material de todas las fuentes y lo convierte en algo que un comercial puede leer y usar: el perfil de la empresa y su sales pitch.",
+        "entra": [
+          "El material reunido de todas las fuentes consultadas"
+        ],
+        "sale": [
+          "El perfil de empresa y su research, listos para usarse en el outreach"
+        ],
+        "acciones": [
+          "Arma el perfil de la empresa con sus datos duros",
+          "Redacta la investigación comercial: propuesta de valor, misión, fortalezas, historia y sales pitch",
+          "Identifica señales de negocio relevantes para el momento del contacto",
+          "Guarda el resultado y marca la empresa como investigada"
+        ],
+        "reglas": [
+          "La empresa queda marcada como investigada solo si el paso termina bien"
+        ],
+        "trabajaCon": [
+          "Modelo de lenguaje",
+          "Base del ecosistema"
+        ],
+        "ia": {
+          "rol": "Analista que sintetiza el research de la empresa",
+          "recibe": [
+            "El perfil de la fuente principal de datos comerciales",
+            "Lo recolectado del sitio oficial, de buscadores y de las redes profesionales de la empresa"
+          ],
+          "instruccion": "Unificar todo el material en dos entregables. Uno: el perfil duro de la empresa — nombre, sitio, industria, cantidad de empleados, ubicación, ingresos y año de fundación. Dos: la investigación comercial — propuesta de valor, misión, visión, fortalezas y diferenciadores, historia, y un sales pitch que un comercial pueda usar. Además, identificar las señales de negocio del momento: rondas de inversión, adquisiciones, contrataciones, cambios de liderazgo, premios o nuevas filiales. Cuando las fuentes se contradigan, dar prioridad a la red profesional de la empresa, después a su sitio oficial, después a la base de datos comercial y por último a los resultados de buscador.",
+          "produce": [
+            "perfil de empresa",
+            "propuesta de valor",
+            "sales pitch",
+            "fortalezas",
+            "señales de negocio"
+          ],
+          "noDecide": [
+            "Qué empresas se investigan: eso lo define quien invoca el pipeline",
+            "Si la empresa es un buen prospecto: la calificación comercial la hace el equipo"
+          ]
+        }
+      },
+      {
+        "id": "p5",
+        "titulo": "Encontrar a los decisores",
+        "quePasa": "Con la empresa ya perfilada, se busca a las personas con las que hay que hablar: dueños, directores, vicepresidentes y nivel ejecutivo.",
+        "entra": [
+          "La empresa investigada y su dominio"
+        ],
+        "sale": [
+          "La lista de decisores candidatos, con sus datos de contacto"
+        ],
+        "acciones": [
+          "Busca a las personas con cargos de decisión en la empresa",
+          "Obtiene sus emails y pide el enriquecimiento del teléfono",
+          "Enlaza el teléfono al contacto cuando llega"
+        ],
+        "reglas": [
+          "El teléfono llega por su propia vía, después del resto: cuando hay varios, se prioriza el móvil sobre la línea directa",
+          "Si la fuente principal no devuelve ningún contacto, se activa una fuente alternativa que busca por dominio"
+        ],
+        "trabajaCon": [
+          "Fuentes de datos de contactos"
+        ]
+      },
+      {
+        "id": "p6",
+        "titulo": "Verificar los emails antes de guardar",
+        "quePasa": "Ningún contacto entra al ecosistema con un email que no se haya comprobado. Lo que no pasa la verificación no se guarda.",
+        "entra": [
+          "Los decisores candidatos con sus emails sin confirmar"
+        ],
+        "sale": [
+          "Los decisores verificados y guardados, listos para recibir el primer contacto"
+        ],
+        "acciones": [
+          "Verifica cada email que no estuviera confirmado antes",
+          "Guarda los válidos con su estado de verificación explícito",
+          "Registra de qué fuente vino cada contacto"
+        ],
+        "reglas": [
+          "Los emails inválidos y los desechables se descartan: no se guardan",
+          "Un contacto sin email se descarta sin persistir",
+          "El estado de verificación se guarda explícito para que el outreach sepa con qué está trabajando"
+        ],
+        "trabajaCon": [
+          "Servicio de verificación de correo",
+          "Base del ecosistema"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p6",
+        "label": "Los decisores verificados habilitan",
+        "componente": "email-cold-outreach"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "Identificadores de empresas ya registradas en el ecosistema",
+      "Datos de fuentes comerciales, del sitio oficial y de redes profesionales"
+    ],
+    "procesa": [
+      "El escalamiento de fuentes: la segunda solo se consulta si la primera no alcanzó",
+      "La síntesis del perfil y del sales pitch con IA",
+      "La verificación de cada email antes de persistirlo"
+    ],
+    "produce": [
+      "Un perfil de empresa con su investigación comercial y sus señales de negocio",
+      "Decisores con email verificado y teléfono cuando está disponible"
+    ]
+  }
+}

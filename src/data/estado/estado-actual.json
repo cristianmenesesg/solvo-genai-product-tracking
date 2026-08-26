@@ -1,0 +1,91 @@
+{
+  "solvo-platform": [
+    {
+      "tipo": "estado",
+      "titulo": "Operando en producción",
+      "detalle": "La plataforma está en productivo con el alcance del Release 2 y sus mejoras de interfaz."
+    }
+  ],
+  "general-us-openings": [
+    {
+      "tipo": "estado",
+      "titulo": "Operando en producción",
+      "detalle": "El barrido del mercado corre en producción sin incidencias registradas."
+    }
+  ],
+  "company-decision-maker": [
+    {
+      "tipo": "estado",
+      "titulo": "Operando en producción",
+      "detalle": "El pipeline de research corre en producción."
+    }
+  ],
+  "email-cold-outreach": [
+    {
+      "tipo": "estado",
+      "titulo": "Operando en producción",
+      "detalle": "El ciclo diario de cold email corre en producción, y el MVP de la Landing de Agendamiento ya está en productivo detrás del botón del correo."
+    }
+  ],
+  "current-client-us-openings": [
+    {
+      "tipo": "estado",
+      "titulo": "Desplegado en producción",
+      "detalle": "El pipeline ya está en producción."
+    },
+    {
+      "tipo": "bloqueante",
+      "titulo": "Falta definir qué clientes se le asignan al vendedor único",
+      "detalle": "La activación no puede concretarse hasta que esté cerrado el listado de clientes que quedan a cargo de ese vendedor."
+    }
+  ],
+  "landing-agendamiento": [
+    {
+      "tipo": "estado",
+      "titulo": "MVP en producción",
+      "detalle": "La landing está en productivo: el prospecto que abre el cold email agenda ahí su reunión."
+    }
+  ],
+  "reporte-funnel": [
+    {
+      "tipo": "estado",
+      "titulo": "En producción",
+      "detalle": "La medición del embudo está en productivo y el reporte semanal ya llega al correo operativo."
+    }
+  ],
+  "on-demand-openings": [
+    {
+      "tipo": "estado",
+      "titulo": "En QA",
+      "detalle": "El pipeline está completo y validándose en QA."
+    }
+  ],
+  "reporte-estatus": [
+    {
+      "tipo": "estado",
+      "titulo": "En QA",
+      "detalle": "El reporte está construido y validándose en QA."
+    }
+  ],
+  "ai-avatar": [
+    {
+      "tipo": "estado",
+      "titulo": "Proyecto suspendido",
+      "detalle": "El componente está suspendido: no tiene ruta a producción ni entrega planificada. Se documenta acá porque existe y funciona, no porque esté en el roadmap."
+    }
+  ],
+  "talent-pool-scraping": [
+    {
+      "tipo": "estado",
+      "titulo": "En QA",
+      "detalle": "El pipeline de scraping del Release 2 está validándose en QA."
+    }
+  ],
+  "solvo-recruiter-platform": [
+    {
+      "tipo": "estado",
+      "titulo": "En QA",
+      "detalle": "El MVP de la plataforma está validándose en QA."
+    }
+  ]
+}

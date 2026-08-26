@@ -1,0 +1,140 @@
+{
+  "flujo": {
+    "titulo": "El reporte semanal del ecosistema",
+    "resultado": "Cada lunes temprano, el equipo tiene en su bandeja qué produjo el sistema la semana pasada, qué pipeline se detuvo y cuánto consumió cada proveedor — sin que nadie tenga que consultar la base ni entrar a los logs.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Calcular lo que pasó en la semana",
+        "nota": "Semanal · lunes 7:00 AM EST",
+        "quePasa": "La ejecución arranca el lunes temprano sobre la semana que acaba de cerrar, para que el correo esté en la bandeja antes de que el equipo empiece a trabajar.",
+        "entra": [
+          "Todo lo ocurrido entre el lunes y el domingo anteriores",
+          "La semana previa, solo para los cuatro indicadores de cabecera"
+        ],
+        "sale": [
+          "Los indicadores de la semana, listos para componer el correo"
+        ],
+        "acciones": [
+          "Delimita la ventana: del lunes anterior al domingo, en horario del este",
+          "Calcula la variación contra la semana previa para vacantes, empresas, contactos y correos despachados",
+          "Entrega cada indicador ya formateado como texto listo para mostrar"
+        ],
+        "reglas": [
+          "Todos los indicadores cuentan hechos ocurridos dentro de la ventana: ninguno reporta acumulado histórico",
+          "Solo los cuatro indicadores de cabecera miran la ventana anterior; ningún otro la consulta"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Medir qué materia prima entró",
+        "quePasa": "El primer bloque responde cuántas vacantes entraron, por qué vía y con qué calidad. El porcentaje de viables por origen es el que revela qué pipeline trae mejor materia prima.",
+        "entra": [
+          "Las vacantes detectadas durante la semana"
+        ],
+        "sale": [
+          "El bloque de vacantes, con su corte por origen y su calidad de ingesta"
+        ],
+        "acciones": [
+          "Abre el conteo por sus cuatro orígenes: clientes actuales, mercado, búsqueda por demanda y carga manual",
+          "Calcula para cada origen qué porcentaje resultó remotamente viable",
+          "Cuenta las que quedaron sin clasificar y las que fallaron al extraerse"
+        ],
+        "reglas": [
+          "Una vacante sin origen registrado se cuenta en el total, pero no en ninguna de las cuatro filas"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Medir si el research y el outreach están rindiendo",
+        "quePasa": "El segundo bloque sigue la cadena desde la empresa descubierta hasta el correo despachado, para ver si el research está rindiendo.",
+        "entra": [
+          "Las empresas, los contactos y los envíos de la semana"
+        ],
+        "sale": [
+          "El bloque de empresas, contactos y outreach"
+        ],
+        "acciones": [
+          "Cuenta las empresas descubiertas y qué proporción llegó a tener contacto, y contacto con correo",
+          "Cuenta las investigadas y las contactadas durante esos días",
+          "Cuenta los contactos descubiertos, cuántos tienen correo y qué proveedor los aportó",
+          "Cuenta los correos de outreach despachados y a cuántos contactos y empresas alcanzaron"
+        ],
+        "reglas": [
+          "La cohorte son las empresas creadas en la semana, no todas las de la base: el contacto se cuenta esté donde esté su fecha de alta",
+          "Los porcentajes se miden al momento de la ejecución: una empresa que reciba su primer contacto después queda fuera de ese conteo"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Medir la salud y el gasto",
+        "quePasa": "El tercer bloque es el pulso operativo: qué corrió, qué falló y cuánto costó cada proveedor. La fecha de la última ejecución exitosa es lo que delata un pipeline detenido.",
+        "entra": [
+          "Las ejecuciones de los cinco pipelines y el consumo registrado por cada proveedor externo"
+        ],
+        "sale": [
+          "El bloque de salud y consumo, con los avisos de pipelines detenidos"
+        ],
+        "acciones": [
+          "Cuenta por pipeline sus ejecuciones de la semana y cuántas terminaron con error",
+          "Registra la fecha de su última ejecución exitosa",
+          "Presenta el consumo de la semana por cada proveedor externo"
+        ],
+        "reglas": [
+          "Un pipeline que lleva demasiado tiempo sin correr bien se señala con un aviso destacado"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p5",
+        "titulo": "Componer el correo y despacharlo",
+        "quePasa": "El correo solo muestra: no calcula nada. Por eso su diseño puede cambiar sin tocar el flujo que produce los números.",
+        "entra": [
+          "Los tres bloques de indicadores ya formateados"
+        ],
+        "sale": [
+          "El reporte en la bandeja del equipo, con sus adjuntos"
+        ],
+        "acciones": [
+          "Arma las cinco secciones con la marca de Solvo, todas con la misma estructura",
+          "Adjunta el detalle de vacantes y contactos de la semana",
+          "Envía a los destinatarios configurados en el flujo"
+        ],
+        "reglas": [
+          "Si un bloque no pudo calcularse, el correo sale igual con ese bloque vacío y la ejecución registra cuál falló",
+          "Si la semana tuvo muy poco volumen, el correo lo advierte en vez de omitirse en silencio"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo"
+        ]
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "Las vacantes, empresas, contactos y envíos registrados durante la semana",
+      "El historial de ejecuciones de los cinco pipelines",
+      "El consumo registrado de cada proveedor externo"
+    ],
+    "procesa": [
+      "El cálculo de todos los indicadores acotado a la semana que cerró",
+      "La comparación contra la semana previa, solo para los cuatro indicadores de cabecera",
+      "El formateo de cada valor antes de llegar al correo, que no calcula nada"
+    ],
+    "produce": [
+      "Un correo semanal con la producción, la salud y el consumo del ecosistema",
+      "El detalle de vacantes y contactos de la semana como adjunto"
+    ]
+  }
+}

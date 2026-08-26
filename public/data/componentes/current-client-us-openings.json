@@ -1,0 +1,130 @@
+{
+  "flujo": {
+    "titulo": "El monitoreo semanal de los clientes",
+    "resultado": "Cada viernes, las vacantes que publicaron los clientes activos quedan guardadas sin duplicados, y cada vendedor recibe ese mismo día el listado de las de sus cuentas.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Arrancar el ciclo y verificar que se pueda trabajar",
+        "nota": "Semanal · viernes 1:00 AM",
+        "quePasa": "El ciclo arranca solo cada viernes de madrugada. Lo primero que hace es comprobar que los proveedores externos estén respondiendo: si alguno está caído, no arranca.",
+        "entra": [
+          "El disparo programado del ciclo semanal"
+        ],
+        "sale": [
+          "La ejecución habilitada y registrada, o el ciclo detenido de forma limpia con su alerta"
+        ],
+        "acciones": [
+          "Registra los datos de la ejecución que arranca",
+          "Consulta el estado de los proveedores externos de scraping y de correo"
+        ],
+        "reglas": [
+          "Si algún proveedor presenta interrupciones, el ciclo se detiene antes de consumir créditos o leer la base"
+        ],
+        "trabajaCon": [
+          "Proveedores de scraping",
+          "Plataforma de envío de correo"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Traer la lista de clientes a monitorear",
+        "quePasa": "Se consulta qué empresas hay que monitorear esta semana. Son solo las que hoy tienen relación formal de cliente activo.",
+        "entra": [
+          "El repositorio de empresas del ecosistema"
+        ],
+        "sale": [
+          "El listado de clientes a consultar esta semana, con su vendedor asignado"
+        ],
+        "acciones": [
+          "Filtra las empresas con relación formal de cliente activo",
+          "Recupera de cada una sus páginas de portal conocidas y su vendedor asignado"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Buscar en los dos portales a la vez",
+        "quePasa": "Los dos portales de empleo se consultan al mismo tiempo, cada uno como un proceso independiente, para que un problema en uno no frene al otro.",
+        "entra": [
+          "El listado de clientes con sus páginas de portal"
+        ],
+        "sale": [
+          "Las vacantes encontradas, por cliente y por portal"
+        ],
+        "acciones": [
+          "Consulta cada portal por separado, cada uno con su propia técnica de acceso",
+          "Recorre empresa por empresa recolectando las vacantes publicadas"
+        ],
+        "reglas": [
+          "Si la búsqueda de una empresa falla, se registra la alerta y el ciclo sigue con la siguiente: una empresa nunca detiene el lote"
+        ],
+        "trabajaCon": [
+          "Portales de empleo",
+          "Proveedores de scraping"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Guardar sin duplicar",
+        "quePasa": "Lo encontrado se contrasta contra lo que ya se conocía de esa empresa antes de guardarlo, así la misma vacante no entra dos veces.",
+        "entra": [
+          "Las vacantes encontradas en ambos portales"
+        ],
+        "sale": [
+          "Las vacantes de los clientes guardadas sin duplicados, disponibles para el resto del ecosistema"
+        ],
+        "acciones": [
+          "Contrasta cada vacante contra las ya conocidas de esa empresa",
+          "Guarda las nuevas y actualiza las existentes en un solo movimiento"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p5",
+        "titulo": "Avisarle a cada vendedor",
+        "quePasa": "Cada vendedor recibe un correo con lo que apareció en sus cuentas, para poder actuar el mismo día de la ejecución.",
+        "entra": [
+          "Las vacantes guardadas y el vendedor asignado a cada cliente"
+        ],
+        "sale": [
+          "Un email por vendedor con las vacantes nuevas de sus clientes"
+        ],
+        "acciones": [
+          "Agrupa los hallazgos por vendedor",
+          "Arma y envía un correo consolidado por persona"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p4",
+        "label": "Las vacantes quedan disponibles en",
+        "componente": "solvo-platform"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "Las empresas con relación formal de cliente activo y sus páginas de portal",
+      "Las vacantes publicadas en los portales de empleo",
+      "El vendedor asignado a cada cliente"
+    ],
+    "procesa": [
+      "La verificación previa de que los proveedores estén disponibles",
+      "La búsqueda desacoplada por portal, tolerante a fallos por empresa",
+      "El contraste contra lo ya conocido para no duplicar"
+    ],
+    "produce": [
+      "Vacantes de clientes actuales guardadas y disponibles para el equipo",
+      "Un correo semanal por vendedor con los hallazgos de sus cuentas"
+    ]
+  }
+}

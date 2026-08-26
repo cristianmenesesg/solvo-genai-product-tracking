@@ -1,0 +1,18 @@
+{
+  "name": "solvo-genai-product-tracking",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Seguimiento de los productos Solvo GenAI: qué hace cada componente, qué datos mueve, dónde actúa la IA, en qué estado está y qué sigue.",
+  "scripts": {
+    "sync": "node scripts/prep-data.mjs",
+    "predev": "node scripts/prep-data.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/prep-data.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.7"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "flujo": {
+    "titulo": "El ciclo diario de cold email",
+    "resultado": "Entre 200 y 750 emails por día, con el gancho escrito por IA sobre las vacantes reales de cada prospecto, enviados a sus decisores. Una empresa contactada no vuelve a recibir cold email nunca: no hay duplicados.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Elegir a quién contactar hoy",
+        "nota": "Diario · 9 AM EST · lunes a viernes",
+        "quePasa": "Cada mañana el sistema arma dos listas en paralelo: a quién se le escribe hoy, y a quién hay que investigar antes de poder escribirle. La segunda lista se manda a investigar y el ciclo sigue sin esperarla.",
+        "entra": [
+          "Empresas del ecosistema con su etapa de pipeline y su research",
+          "Vacantes viables asociadas a cada empresa",
+          "Contactos verificados de cada empresa"
+        ],
+        "sale": [
+          "La lista de empresas a las que se les escribe hoy",
+          "La lista de empresas que se mandan a investigar"
+        ],
+        "acciones": [
+          "Arma la lista A: empresas en prospección activa que ya tienen research, contactos verificados y vacantes viables",
+          "Arma la lista B: empresas con vacantes viables pero sin investigar todavía",
+          "Manda la lista B a investigar sin esperar su resultado"
+        ],
+        "reglas": [
+          "Una empresa ya contactada queda fuera de forma permanente: su cambio de etapa la excluye para siempre",
+          "Una empresa enviada a investigar hace menos de 7 días no se reenvía",
+          "Una empresa que se investigó y no arrojó ningún contacto queda excluida de forma permanente"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema",
+          "Pipeline de research"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Reunir el contexto de cada empresa",
+        "quePasa": "Antes de escribir nada, el sistema junta todo lo que se sabe del prospecto: qué está contratando, a qué se dedica y quiénes son sus decisores.",
+        "entra": [
+          "Las empresas seleccionadas para escribir hoy"
+        ],
+        "sale": [
+          "Un expediente por empresa con sus vacantes, su perfil y sus decisores",
+          "La lista final de destinatarios de cada empresa"
+        ],
+        "acciones": [
+          "Toma sus últimas 3 vacantes viables con título, seniority, ubicación y descripción",
+          "Toma los datos de la empresa: nombre, industria y ubicación",
+          "Toma el research cuando existe: sales pitch, propuesta de valor y fortalezas",
+          "Elige hasta 5 contactos verificados por empresa"
+        ],
+        "reglas": [
+          "Los contactos se priorizan por ser primarios y por seniority alta",
+          "Un contacto con email de formato inválido se descarta antes del envío, sin frenar a los demás de esa empresa"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Escribir el gancho del email",
+        "quePasa": "Un modelo redacta la parte personalizada del email a partir de las vacantes reales que esa empresa está publicando. El cierre comercial no lo escribe el modelo.",
+        "entra": [
+          "El expediente de la empresa: sus vacantes, su industria y su research"
+        ],
+        "sale": [
+          "Asunto, título de apertura y párrafo de apertura, listos para insertar en la plantilla"
+        ],
+        "acciones": [
+          "Genera el asunto, el título de apertura y el párrafo personalizado"
+        ],
+        "reglas": [
+          "Con research disponible, el texto se ancla en datos concretos de la empresa",
+          "Sin research, se escribe a partir de la industria y de los roles que la empresa está buscando"
+        ],
+        "trabajaCon": [
+          "Modelo de lenguaje"
+        ],
+        "ia": {
+          "rol": "Redactor del gancho personalizado del email",
+          "recibe": [
+            "Las últimas vacantes viables de la empresa, con su título y seniority",
+            "La industria y la ubicación de la empresa",
+            "El research de la empresa cuando existe: sales pitch, propuesta de valor y fortalezas"
+          ],
+          "instruccion": "Escribir tres piezas para esta empresa: un asunto de no más de 60 caracteres; un título de apertura que sea una pregunta directa sobre el reto de contratar, de no más de 8 palabras; y un párrafo de 50 a 70 palabras con una observación concreta sobre las vacantes que esa empresa está publicando. El párrafo no debe mencionar a Solvo: su trabajo es hablar del problema del prospecto, no vender.",
+          "produce": [
+            "asunto",
+            "título de apertura",
+            "párrafo de apertura"
+          ],
+          "noDecide": [
+            "La propuesta de valor de Solvo, que es un bloque fijo de la plantilla y el modelo no puede reescribir ni distorsionar",
+            "A quién se le escribe: los destinatarios ya quedaron definidos en los pasos anteriores"
+          ]
+        }
+      },
+      {
+        "id": "p4",
+        "titulo": "Armar el email sobre la plantilla de marca",
+        "quePasa": "El texto del modelo se inserta en una plantilla profesional con la marca de Solvo, donde el cierre comercial es siempre el mismo, escrito por personas.",
+        "entra": [
+          "El asunto, el título y el párrafo generados",
+          "El nombre del contacto y el de su empresa"
+        ],
+        "sale": [
+          "El email listo para enviar, responsive y con la marca aplicada"
+        ],
+        "acciones": [
+          "Inserta el saludo personalizado y el párrafo de apertura en la plantilla de marca",
+          "Agrega el botón de llamado a la acción hacia la página de agendamiento",
+          "Activa el seguimiento de aperturas y clics"
+        ],
+        "reglas": [
+          "El bloque de cierre con la propuesta de valor de Solvo es fijo: está en la plantilla y el modelo no lo toca"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo"
+        ]
+      },
+      {
+        "id": "p5",
+        "titulo": "Enviar a los decisores y avanzar el pipeline",
+        "nota": "Envíos entre 9 AM y 5 PM EST",
+        "quePasa": "El mismo email sale a cada decisor de la empresa y el prospecto avanza de etapa. A partir de acá esa empresa no vuelve a recibir cold email.",
+        "entra": [
+          "El email armado y la lista de hasta 5 decisores por empresa"
+        ],
+        "sale": [
+          "Emails entregados a los decisores, cada uno rastreable por su identificador",
+          "El prospecto avanzado de etapa en el pipeline comercial"
+        ],
+        "acciones": [
+          "Envía a cada contacto el mismo texto, cambiando solo el saludo con su nombre",
+          "Guarda el identificador de mensaje que devuelve el proveedor, para poder rastrear cada envío",
+          "Marca la fecha de último contacto de la empresa y la pasa a la siguiente etapa"
+        ],
+        "reglas": [
+          "Los envíos salen entre las 9 AM y las 5 PM EST, de lunes a viernes",
+          "Tras el envío, la empresa queda excluida de forma permanente de futuros cold emails"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo",
+          "Base del ecosistema"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p1",
+        "label": "Las empresas sin investigar se mandan a research, sin esperar respuesta",
+        "componente": "company-decision-maker"
+      },
+      {
+        "from": "p4",
+        "label": "El botón del email lleva al prospecto a",
+        "componente": "landing-agendamiento"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "Empresas en prospección con su research y su etapa de pipeline",
+      "Las últimas vacantes viables de cada empresa",
+      "Contactos decisores verificados y priorizados"
+    ],
+    "procesa": [
+      "La selección diaria de a quién escribirle y a quién investigar",
+      "La redacción del gancho personalizado con IA",
+      "El armado del email sobre la plantilla de marca"
+    ],
+    "produce": [
+      "Emails enviados y rastreables, uno por decisor",
+      "El prospecto avanzado de etapa, sin posibilidad de recontacto",
+      "Reuniones agendadas cuando el prospecto responde al llamado"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+/* ============================================================
+   DARK — el brand Solvo GenAI no trae modo oscuro, así que el sitio lo
+   aporta. Redefine SOLO los semánticos del sitio; las rampas de marca no
+   se tocan.
+
+   La rampa de madurez no se invierte automáticamente: se elige de nuevo
+   contra la superficie oscura, donde "más maduro" = más luminoso.
+   ============================================================ */
+:root[data-theme='dark'] {
+  --paper: #131418;
+  --surface: #1B1D23;
+  --surface-sunken: #23262E;
+  --ink: #E8E9ED;
+  --ink-2: #B4B7C0;
+  --ink-3: #8E9199;
+  --line: #2C2F38;
+  --line-strong: #3A3E49;
+
+  --ia-ink: #F4A66D;
+  --ia: #F19556;
+  --ia-tint: #2C2118;
+  --ia-line: #6B4526;
+  --ia-chip-bg: #E07E3A;
+  --ia-chip-ink: #1A1207;
+
+  --work-ink: #A48FEF;
+  --work: #8D74EA;
+  --work-tint: #211D33;
+  --work-line: #443A6B;
+
+  /* Cada tono se eligió de nuevo contra #131418, no se invirtió el claro. */
+  --mad-produccion: #4ADE80;      --mad-produccion-ink: #4ADE80;
+  --mad-qa: #FBBF24;              --mad-qa-ink: #FBBF24;
+  --mad-desarrollo: #7CA0FF;      --mad-desarrollo-ink: #7CA0FF;
+  --mad-suspendido: #6B7280;      --mad-suspendido-ink: #9CA3AF;
+  --mad-ink: #4ADE80;
+
+  --stop-ink: #F87171;
+  --stop-tint: #2C1A1A;
+  --wait-ink: #93B4FD;
+  --wait-tint: #17203A;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -14px rgba(0, 0, 0, .7);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, .45), 0 20px 44px -18px rgba(0, 0, 0, .8);
+}

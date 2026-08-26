@@ -1,0 +1,290 @@
+/* ============================================================
+   PANELES — las piezas del dashboard: tiles de indicadores, cards de
+   producto y de componente, cadena de valor, capas de infraestructura,
+   matriz de estado, índice de IA y bloque de IA.
+   ============================================================ */
+
+/* ---- Rejillas ----------------------------------------------- */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: var(--space-5); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); }
+.bloque { margin-top: var(--space-10); }
+.bloque-head { display: flex; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.bloque-head h2 { font-size: var(--text-xl); font-weight: var(--font-bold); letter-spacing: var(--tracking-tight); }
+.bloque-head .hint { color: var(--ink-3); font-size: var(--text-sm); }
+.bloque-head .mas { margin-left: auto; font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--work-ink); }
+.bloque-head .mas:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: var(--space-6); }
+.empty { border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); padding: var(--space-8); text-align: center; color: var(--ink-3); background: var(--surface); }
+
+/* ---- Tiles de indicadores ----------------------------------- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-4); }
+.tile {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-1);
+}
+.tile .n {
+  font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: var(--font-extrabold);
+  letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.tile .l { color: var(--ink-2); font-size: var(--text-sm); }
+.tile.is-ia { border-color: var(--ia-line); background: var(--ia-tint); }
+.tile.is-ia .n { color: var(--ia-ink); }
+.tile.is-stop .n { color: var(--stop-ink); }
+.tile.is-cero .n, .mini-tiles .is-cero .n { color: var(--ink-3); }
+
+/* ---- Barra de madurez --------------------------------------- */
+/* Rampa secuencial + leyenda etiquetada SIEMPRE presente: la etiqueta es el
+   canal primario, la barra aporta la proporción. */
+.madurez { display: flex; gap: 2px; height: 8px; border-radius: var(--radius-full); overflow: hidden; }
+.madurez span { display: block; }
+.madurez span.m-produccion, .madurez-leyenda i.m-produccion { background: var(--mad-produccion); }
+.madurez span.m-qa, .madurez-leyenda i.m-qa { background: var(--mad-qa); }
+.madurez span.m-desarrollo, .madurez-leyenda i.m-desarrollo { background: var(--mad-desarrollo); }
+.madurez span.m-suspendido, .madurez-leyenda i.m-suspendido {
+  background: repeating-linear-gradient(45deg, var(--mad-suspendido) 0 3px, transparent 3px 6px), var(--surface-sunken);
+}
+.madurez-leyenda { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--ink-2); }
+.madurez-leyenda span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.madurez-leyenda i { width: 9px; height: 9px; border-radius: 2px; flex: none; font-style: normal; }
+.madurez-leyenda strong { font-variant-numeric: tabular-nums; }
+
+/* ---- Card de producto --------------------------------------- */
+.producto-card {
+  display: flex; flex-direction: column; gap: var(--space-4);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl);
+  padding: var(--space-6); box-shadow: var(--shadow-card); position: relative; overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.producto-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--grad-sign); }
+.producto-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: var(--line-strong); }
+.producto-card h3 { font-size: var(--text-xl); font-weight: var(--font-bold); }
+.producto-card .tagline { color: var(--work-ink); font-weight: var(--font-semibold); font-size: var(--text-sm); }
+.producto-card .desc { color: var(--ink-2); font-size: var(--text-sm); }
+.producto-card .go { margin-top: auto; padding-top: var(--space-2); font-weight: var(--font-semibold); color: var(--work-ink); font-size: var(--text-sm); }
+.producto-card:hover .go { text-decoration: underline; text-underline-offset: 4px; }
+.mini-tiles { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+.mini-tiles div { display: flex; flex-direction: column; }
+.mini-tiles .n { font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-bold); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.mini-tiles .l { font-size: var(--text-xs); color: var(--ink-3); }
+.mini-tiles .is-ia .n { color: var(--ia-ink); }
+.mini-tiles .is-stop .n { color: var(--stop-ink); }
+
+/* ---- Card de componente ------------------------------------- */
+.comp-card {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: var(--space-5); box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+.comp-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); border-color: var(--line-strong); }
+.comp-card .cc-top { display: flex; align-items: center; gap: var(--space-2); justify-content: space-between; }
+.comp-card h3 { font-size: var(--text-base); font-weight: var(--font-semibold); }
+.comp-card .cc-res { color: var(--ink-2); font-size: var(--text-sm); line-height: var(--leading-snug); }
+.comp-card .cc-foot { margin-top: auto; padding-top: var(--space-2); display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+.cc-tipo { font-family: var(--font-data); font-size: var(--text-xs); color: var(--ink-3); }
+.cc-ia {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  background: var(--ia-chip-bg); color: var(--ia-chip-ink);
+  border-radius: var(--radius-full); padding: 2px var(--space-2);
+  font-size: var(--text-xs); font-weight: var(--font-bold);
+}
+
+/* ---- Tabs del detalle de componente ------------------------- */
+.tabs { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--line); margin-bottom: var(--space-6); overflow-x: auto; }
+.tabs a {
+  padding: var(--space-3) var(--space-4); font-size: var(--text-sm); font-weight: var(--font-semibold);
+  color: var(--ink-3); border-bottom: 2px solid transparent; white-space: nowrap;
+}
+.tabs a:hover { color: var(--ink-2); }
+.tabs a.active { color: var(--ink); border-bottom-color: var(--energy); }
+.tabs .n { font-family: var(--font-data); font-size: 10px; color: var(--ink-3); margin-left: var(--space-2); }
+
+/* ---- Bloque de IA -------------------------------------------- */
+.ia-block {
+  margin-top: var(--space-5); border-radius: var(--radius-lg);
+  border: 1px solid var(--ia-line); background: var(--ia-tint); padding: var(--space-4) var(--space-5);
+}
+.ia-head { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.ia-glyph { color: var(--ia-ink); font-size: var(--text-lg); line-height: 1; }
+.ia-head .rol { font-family: var(--font-heading); font-weight: var(--font-semibold); color: var(--ia-ink); }
+.ia-instruccion {
+  margin-top: var(--space-3); padding-left: var(--space-4); border-left: 2px solid var(--ia);
+  color: var(--ink); font-size: var(--text-sm); line-height: var(--leading-relaxed);
+}
+.ia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-4); }
+.ia-grid h5 {
+  font-family: var(--font-data); font-size: 10px; letter-spacing: var(--tracking-widest);
+  text-transform: uppercase; color: var(--ia-ink); margin: 0 0 var(--space-2); font-weight: var(--font-bold);
+}
+.ia-grid li { font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug); margin-bottom: var(--space-1); }
+.ia-produce { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.ia-produce code {
+  font-family: var(--font-data); font-size: var(--text-xs); background: var(--surface);
+  border: 1px solid var(--ia-line); border-radius: var(--radius-sm); padding: 2px var(--space-2); color: var(--ink);
+}
+.ia-nodecide { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px dashed var(--ia-line); font-size: var(--text-sm); color: var(--ink-2); }
+.ia-nodecide strong { color: var(--ia-ink); font-weight: var(--font-semibold); }
+
+/* ---- Glifo esquemático de pantalla -------------------------- */
+.glyph {
+  width: 26px; height: 20px; flex: none; border: 1px solid currentColor; border-radius: 3px;
+  padding: 2px; display: grid; gap: 2px; opacity: .75;
+}
+.glyph span { background: currentColor; border-radius: 1px; display: block; }
+.g-auth { place-items: center; }
+.g-auth span { width: 12px; height: 3px; }
+.g-tiles { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.g-list { grid-template-rows: repeat(4, 1fr); }
+.g-detail { grid-template-columns: 1fr 1fr; grid-template-rows: 5px 1fr 1fr; }
+.g-detail span:first-child { grid-column: 1 / -1; }
+.g-table { grid-template-rows: 4px repeat(3, 1fr); }
+.g-search { grid-template-rows: 5px repeat(2, 1fr); }
+.g-form { grid-template-rows: repeat(3, 1fr); }
+.g-form span:nth-child(2) { width: 70%; }
+.g-form span:last-child { width: 40%; }
+
+/* ---- Estado e incidencias ----------------------------------- */
+.issues { display: flex; flex-direction: column; gap: var(--space-3); }
+.issue {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--line-strong);
+  border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5);
+}
+.issue.is-stop { border-left-color: var(--stop-ink); }
+.issue.is-wait { border-left-color: var(--wait-ink); }
+.issue.is-ok { border-left-color: var(--mad-produccion); }
+.issue h4 { font-size: var(--text-sm); font-weight: var(--font-semibold); }
+.issue p { margin-top: var(--space-1); color: var(--ink-2); font-size: var(--text-sm); }
+
+/* ---- Qué sigue ---------------------------------------------- */
+/* El color lo carga el avance hacia producción, no el tipo de trabajo: el
+   verde sigue significando "más cerca de productivo" en todo el sitio. */
+.bloque-head .bloque-n {
+  margin-left: auto; font-family: var(--font-data); font-size: var(--text-xs);
+  font-weight: var(--font-bold); color: var(--ink-3);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-full); padding: 1px var(--space-3);
+}
+.items { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); }
+.item {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  border-left: 3px solid var(--line-strong); padding: var(--space-5); box-shadow: var(--shadow-card);
+}
+.g-listo .item { border-left-color: var(--mad-produccion); }
+.g-construccion .item { border-left-color: var(--work); }
+.g-planificado .item { border-left-color: var(--line-strong); }
+
+.item-head { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-1); }
+.item-tipo { gap: var(--space-2); }
+.item-cuando {
+  font-size: var(--text-xs); color: var(--ink-3); font-weight: var(--font-semibold);
+  display: flex; align-items: center; gap: var(--space-2);
+}
+.item-cuando::before { content: '→'; color: var(--line-strong); }
+.item-comp { margin-top: auto; padding-top: var(--space-3); font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--work-ink); }
+.item-comp:hover { text-decoration: underline; text-underline-offset: 3px; }
+.item h3 { font-size: var(--text-base); font-weight: var(--font-semibold); }
+.item p { font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug); }
+.item-bloqueo {
+  margin-top: var(--space-2); padding-top: var(--space-3); border-top: 1px dashed var(--line);
+  display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap;
+}
+
+/* ---- Cadena de valor ---------------------------------------- */
+.cadena { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); }
+.estacion {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-5);
+}
+.estacion .paso { font-family: var(--font-data); font-size: var(--text-xs); color: var(--ink-3); }
+.estacion h4 { font-size: var(--text-sm); font-weight: var(--font-semibold); }
+.estacion p { font-size: var(--text-sm); color: var(--ink-2); line-height: var(--leading-snug); }
+.estacion .entrega-chip { margin-top: auto; padding-top: var(--space-3); font-size: var(--text-xs); color: var(--ink-3); }
+.estacion .entrega-chip b { color: var(--ink-2); font-weight: var(--font-semibold); }
+a.estacion:hover { border-color: var(--work-line); box-shadow: var(--shadow-card); }
+
+/* ---- Infraestructura por capas ------------------------------ */
+.capas { display: flex; flex-direction: column; gap: var(--space-3); }
+.capa {
+  display: grid; grid-template-columns: 160px 1fr; gap: var(--space-4); align-items: center;
+  padding: var(--space-4) var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface);
+}
+.capa-nombre h4 { font-size: var(--text-sm); font-weight: var(--font-semibold); }
+.capa-nombre p { font-size: var(--text-xs); color: var(--ink-3); line-height: var(--leading-snug); margin-top: 2px; }
+.capa-nodos { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.nodo {
+  display: flex; flex-direction: column; gap: 2px; max-width: 320px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4); background: var(--surface-sunken);
+}
+.nodo b { font-family: var(--font-heading); font-weight: var(--font-semibold); font-size: var(--text-sm); }
+/* La tecnología en la voz "máquina": es el dato que busca un lector técnico. */
+.nodo em {
+  font-style: normal; font-family: var(--font-data); font-size: 11px;
+  color: var(--ink-3); line-height: var(--leading-snug);
+}
+.capa-externo .nodo { border-style: dashed; }
+
+/* ---- Recursos ------------------------------------------------ */
+.recursos-grupo { margin-bottom: var(--space-5); }
+.recursos-grupo:last-child { margin-bottom: 0; }
+.recursos-grupo h4 { font-size: var(--text-sm); font-weight: var(--font-semibold); margin-bottom: var(--space-3); }
+.recursos-lista { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.recurso {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3); font-size: var(--text-xs); background: var(--surface);
+}
+.recurso .state { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.recurso .state.ok { background: var(--mad-produccion); }
+.recurso .state.curso { background: var(--mad-qa); }
+.recurso .state.plan { background: var(--line-strong); }
+.recurso em { font-style: normal; color: var(--ink-3); }
+
+/* ---- Entregas ------------------------------------------------ */
+.entrega { display: grid; grid-template-columns: minmax(150px, auto) 1fr; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
+.entrega:last-child { border-bottom: 0; }
+.entrega b { font-family: var(--font-heading); font-weight: var(--font-semibold); font-size: var(--text-sm); }
+.entrega span { color: var(--ink-2); font-size: var(--text-sm); }
+
+/* ---- Datos del componente ----------------------------------- */
+.datos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.datos-col { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-5); background: var(--surface); }
+.datos-col h4 { font-family: var(--font-data); font-size: 10px; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--space-3); font-weight: var(--font-bold); }
+.datos-col.procesa { background: var(--work-tint); border-color: var(--work-line); }
+.datos-col.procesa h4 { color: var(--work-ink); }
+.datos-col li { font-size: var(--text-sm); color: var(--ink-2); padding-left: var(--space-4); position: relative; margin-bottom: var(--space-2); line-height: var(--leading-snug); }
+.datos-col li::before { content: ''; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong); }
+
+/* ---- Matriz de estado --------------------------------------- */
+.tabla-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--surface); }
+.matriz { width: 100%; border-collapse: collapse; font-size: var(--text-sm); min-width: 880px; }
+.matriz th {
+  text-align: left; font-family: var(--font-data); font-size: 10px; font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--ink-3);
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--line-strong); white-space: nowrap;
+}
+.matriz td { padding: var(--space-4); border-bottom: 1px solid var(--line); vertical-align: top; }
+.matriz tbody tr:last-child td { border-bottom: 0; }
+.matriz tbody tr:hover { background: var(--surface-sunken); }
+.matriz .c-nombre b { font-family: var(--font-heading); font-weight: var(--font-semibold); }
+.matriz .c-nombre small { display: block; color: var(--ink-3); font-size: var(--text-xs); }
+.matriz .celda-lista li { color: var(--ink-2); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+.matriz .celda-lista li:last-child { margin-bottom: 0; }
+.matriz .celda-lista a { color: var(--ink-2); }
+.matriz .celda-lista a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.matriz .celda-lista b { display: block; font-weight: var(--font-semibold); color: var(--ink); }
+.matriz .celda-lista small { display: block; margin-top: 2px; color: var(--ink-3); font-size: var(--text-xs); line-height: var(--leading-snug); }
+.matriz .celda-nada { color: var(--ink-3); }
+.matriz .c-nombre { min-width: 21ch; }
+.matriz .c-nombre small { white-space: nowrap; }
+.matriz .c-bloq { min-width: 32ch; }
+.matriz tr.tiene-freno .c-bloq { border-left: 2px solid var(--stop-ink); }
+
+@media (max-width: 900px) {
+  .datos-grid { grid-template-columns: 1fr; }
+  .capa { grid-template-columns: 1fr; align-items: start; }
+  .entrega { grid-template-columns: 1fr; gap: var(--space-1); }
+  .ia-grid { grid-template-columns: 1fr; }
+}

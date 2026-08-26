@@ -1,0 +1,35 @@
+{
+  "resumen": "El proceso comercial completo, de una vacante publicada en un portal a una reunión en la agenda de un comercial. Cada etapa entrega algo concreto a la siguiente.",
+  "estaciones": [
+    {
+      "titulo": "Detectar quién está contratando",
+      "detalle": "Tres pipelines barren el mercado desde ángulos distintos: los clientes actuales, el mercado abierto y lo que un comercial pide en el momento.",
+      "entrega": "Vacantes clasificadas por viabilidad remota",
+      "componente": "general-us-openings"
+    },
+    {
+      "titulo": "Investigar a la empresa",
+      "detalle": "Con la empresa ya en el radar, se arma su perfil comercial y se descubre a quién hay que hablarle.",
+      "entrega": "Perfil, sales pitch y decisores con email verificado",
+      "componente": "company-decision-maker"
+    },
+    {
+      "titulo": "Escribir el primer contacto",
+      "detalle": "Un modelo redacta el gancho sobre las vacantes reales del prospecto; el cierre comercial es siempre el mismo.",
+      "entrega": "Email enviado a hasta 5 decisores",
+      "componente": "email-cold-outreach"
+    },
+    {
+      "titulo": "Convertir el interés en reunión",
+      "detalle": "El prospecto que responde al llamado llega a una página que ya sabe quién es y elige un horario real.",
+      "entrega": "Reunión creada y confirmada",
+      "componente": "landing-agendamiento"
+    },
+    {
+      "titulo": "Trabajar el pipeline",
+      "detalle": "Todo lo anterior aterriza donde el equipo comercial trabaja: filtros, asignaciones, estados e historial.",
+      "entrega": "Pipeline comercial con trazabilidad",
+      "componente": "solvo-platform"
+    }
+  ]
+}

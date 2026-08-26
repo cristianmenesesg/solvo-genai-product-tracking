@@ -1,0 +1,102 @@
+{
+  "paginas": [
+    {
+      "id": "login",
+      "arquetipo": "auth",
+      "nombre": "Ingreso",
+      "proposito": "El equipo entra con su cuenta corporativa y la plataforma lo lleva a lo que le corresponde según su rol.",
+      "contenido": [
+        "Un único acceso con la cuenta corporativa",
+        "El destino según el rol: la configuración para el administrador, la búsqueda para el reclutador"
+      ],
+      "funciones": [
+        "Reconocer el rol del usuario y conceder acceso solo a quien está autorizado",
+        "Bloquear las vistas que no corresponden al rol",
+        "Cerrar la sesión al expirar y volver al ingreso, sin dejar datos ni vistas a la vista"
+      ],
+      "roles": "Dos roles: administrador y reclutador. Un usuario sin rol asignado no accede a las funciones protegidas.",
+      "origenDatos": ["Identidad y grupos de seguridad corporativos"]
+    },
+    {
+      "id": "busqueda",
+      "arquetipo": "search",
+      "nombre": "Búsqueda de candidatos",
+      "proposito": "Donde el reclutador encuentra, dentro del pool, a la persona que necesita para una vacante.",
+      "contenido": [
+        "El listado de candidatos abiertos a nuevas oportunidades, y solo ellos",
+        "El correo de contacto de cada candidato, o la marca de que no está disponible",
+        "Un panel de detalle por candidato",
+        "Los estados de carga, de listado vacío y de error, todos con reintento"
+      ],
+      "funciones": [
+        "Buscar por perfil y palabras clave, con coincidencia aproximada sobre el titular, el resumen y las habilidades",
+        "Recibir de inmediato los candidatos vigentes, mientras los vencidos se mandan a re-validar y van apareciendo con su correo ya cargado",
+        "Refinar el listado con filtros que no vuelven a consultar el servidor: idioma, ubicación, texto y si tiene correo",
+        "Seleccionar candidatos con casillas, sin perder la selección ni los criterios al recargar o reintentar"
+      ],
+      "roles": "Reclutador.",
+      "origenDatos": [
+        "El pool de talento que mantiene el pipeline de scraping",
+        "La vigencia configurada por el administrador, que define cuándo un candidato hay que re-validarlo",
+        "La re-validación en vivo, que saca del listado a quien ya no está disponible"
+      ]
+    },
+    {
+      "id": "outreach",
+      "arquetipo": "form",
+      "nombre": "Contacto por email",
+      "proposito": "Enviarle a los candidatos seleccionados el primer correo, sin salir de la plataforma.",
+      "contenido": [
+        "Los candidatos seleccionados en la búsqueda",
+        "La plantilla de correo preconfigurada",
+        "El resultado del envío: exitosos, omitidos y fallidos"
+      ],
+      "funciones": [
+        "Confirmar antes de enviar, indicando a cuántos candidatos se va a contactar",
+        "Enviar solo a quienes tienen correo válido, y reportar como omitidos a los que no",
+        "Dejar cada envío auditado, candidato por candidato"
+      ],
+      "roles": "Reclutador.",
+      "origenDatos": [
+        "Los candidatos seleccionados con su correo capturado por el pipeline",
+        "La plantilla de correo preconfigurada"
+      ]
+    },
+    {
+      "id": "configuracion",
+      "arquetipo": "table",
+      "nombre": "Configuración",
+      "proposito": "Define qué busca el pipeline, dónde y cada cuánto. Es lo que gobierna el pool entero.",
+      "contenido": [
+        "Los perfiles de búsqueda, cada uno con su nombre interno y sus términos en español e inglés",
+        "La cobertura: países y ciudades activas",
+        "La frecuencia de ejecución del pipeline y la vigencia de un candidato"
+      ],
+      "funciones": [
+        "Crear, editar y eliminar perfiles de búsqueda; cada perfil es una búsqueda independiente que el pipeline ejecuta",
+        "Administrar países y ciudades activas",
+        "Ajustar cada cuánto corre el pipeline y cuántos días permanece vigente un candidato antes de re-validarse",
+        "Rechazar a la entrada los duplicados y los valores por debajo del mínimo permitido"
+      ],
+      "roles": "Solo el administrador.",
+      "origenDatos": ["La configuración vigente, que es la única que consumen tanto el pipeline como la búsqueda"]
+    }
+  ],
+  "datos": {
+    "entra": [
+      "El pool de candidatos que mantiene el pipeline de scraping",
+      "La configuración de perfiles, cobertura, frecuencia y vigencia",
+      "Identidad y grupos de seguridad corporativos"
+    ],
+    "procesa": [
+      "La búsqueda aproximada sobre titular, resumen y habilidades",
+      "La re-validación en vivo de los candidatos vencidos",
+      "El envío por plantilla a los candidatos seleccionados, con auditoría por persona"
+    ],
+    "produce": [
+      "Candidatos vigentes y contactables encontrados por el reclutador",
+      "Correos de contacto enviados y auditados",
+      "La configuración que gobierna qué y cada cuánto busca el pipeline"
+    ]
+  }
+}

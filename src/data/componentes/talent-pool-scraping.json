@@ -1,0 +1,100 @@
+{
+  "flujo": {
+    "titulo": "La construcción del pool de talento",
+    "resultado": "Un pool de candidatos abiertos a nuevas oportunidades, sin duplicados y con su dato de contacto, que se refresca solo con la frecuencia que el administrador defina.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Leer la configuración vigente",
+        "nota": "Cada ciclo, según la frecuencia configurada",
+        "quePasa": "Qué se busca, dónde y cada cuánto no está escrito en el pipeline: lo define el administrador desde la plataforma. Cada ciclo lee la configuración vigente.",
+        "entra": [
+          "Los perfiles de búsqueda, con su título y sus términos en español e inglés",
+          "Los países y ciudades activos",
+          "La frecuencia del ciclo y el tiempo de vigencia de un candidato"
+        ],
+        "sale": [
+          "El plan de búsqueda del ciclo"
+        ],
+        "acciones": [
+          "Arma las combinaciones de perfil, país y ciudad que toca recorrer en este ciclo"
+        ],
+        "reglas": [
+          "El pipeline consume siempre la configuración vigente, no una copia: un cambio del administrador rige desde el ciclo siguiente"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Encontrar a quienes se declaran disponibles",
+        "quePasa": "Dos pasadas sobre la red profesional: primero se descubre quiénes llevan la señal de estar abiertos a oportunidades, después se entra a cada perfil a leer su información pública.",
+        "entra": [
+          "El plan de búsqueda del ciclo"
+        ],
+        "sale": [
+          "Los perfiles encontrados con su detalle público"
+        ],
+        "acciones": [
+          "Primera pasada: descubre los perfiles con señal de estar abiertos a oportunidades",
+          "Segunda pasada: extrae de cada perfil su resumen, habilidades, ubicación e idiomas"
+        ],
+        "reglas": [
+          "Solo se lee información pública del perfil"
+        ],
+        "trabajaCon": [
+          "Red profesional",
+          "Proveedores de scraping"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Validar, contactar y guardar",
+        "quePasa": "Solo entra al pool quien realmente está disponible y se puede contactar. Quien ya estaba, no entra dos veces.",
+        "entra": [
+          "Los perfiles encontrados con su detalle"
+        ],
+        "sale": [
+          "El pool de talento actualizado y contactable"
+        ],
+        "acciones": [
+          "Confirma la señal de disponibilidad contra el dato explícito de la fuente",
+          "Registra cuándo se analizó al candidato",
+          "Captura su dato de contacto",
+          "Guarda al candidato en el pool"
+        ],
+        "reglas": [
+          "La disponibilidad se valida contra el campo explícito de la fuente, no se infiere",
+          "El candidato se guarda deduplicado contra el pool existente",
+          "La marca de cuándo se analizó es la que después determina su vigencia"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p3",
+        "label": "El pool alimenta la búsqueda de",
+        "componente": "solvo-recruiter-platform"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "La configuración de perfiles, cobertura y cadencia que fija el administrador",
+      "Los perfiles públicos de la red profesional con señal de disponibilidad"
+    ],
+    "procesa": [
+      "El recorrido por perfil, país y ciudad según la configuración vigente",
+      "La validación de la señal de disponibilidad contra el dato explícito de la fuente",
+      "La deduplicación contra el pool existente"
+    ],
+    "produce": [
+      "Un pool de candidatos abiertos a nuevas oportunidades, contactables y sin duplicados",
+      "La marca de cuándo se analizó cada candidato, que determina su vigencia"
+    ]
+  }
+}

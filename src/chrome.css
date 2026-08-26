@@ -1,0 +1,194 @@
+/* ============================================================
+   CHROME — shell de dashboard y sistema visual.
+
+   Se apoya en los tokens del brand Solvo GenAI y define encima los
+   semánticos del sitio. Dos reglas de color que cargan información:
+
+   1. El naranja de marca está RESERVADO para la IA — es "el único color
+      vivo", igual que en los review decks. Toda marca naranja del sitio
+      señala un punto donde actúa un modelo. Nunca se usa para estado.
+   2. El estado de un componente es una RAMPA secuencial verde
+      (desarrollo → QA → producción): la madurez se lee como intensidad.
+      "Suspendido" sale de la rampa: gris con tramado y etiqueta.
+
+   El color nunca es el único canal: todo estado y todo bloque de IA lleva
+   además su glifo y su etiqueta en texto.
+   ============================================================ */
+
+@import './theme/dark.css';
+@import './styles/flow.css';
+@import './styles/paneles.css';
+
+:root {
+  --paper: #F1F0F4;
+  --surface: #FFFFFF;
+  --surface-sunken: #F7F7F9;
+  --ink: #111827;
+  --ink-2: #4B5563;
+  --ink-3: #6B7280;
+  --line: #E5E7EB;
+  --line-strong: #D1D5DB;
+
+  /* IA — reservado, el único color vivo */
+  --ia-ink: #A0531E;
+  --ia: #F19556;
+  --energy: #F19556;
+  --energy-d: #E07E3A;
+  --ia-tint: #FDF1E7;
+  --ia-line: #F0C9A7;
+  /* El chip de IA es sólido: se distingue por forma, no solo por tono. */
+  --ia-chip-bg: #A0531E;
+  --ia-chip-ink: #FFFFFF;
+  --grad-heat: linear-gradient(90deg, #E07E3A, #F19556);
+
+  /* Proceso: el sistema haciendo su trabajo */
+  --work-ink: #5038B3;
+  --work: #775AE5;
+  --work-tint: #F1EEFD;
+  --work-line: #D5CBF7;
+  --grad-sign: linear-gradient(135deg, #2E206D 0%, #775AE5 52%, #3869E0 100%);
+
+  /* Estados: un tono por estado, no una rampa. Cada par adyacente se verificó
+     por separación en visión normal y bajo daltonismo, y por contraste.
+     --*-bar es el relleno de la barra; --*-ink el texto del badge. */
+  --mad-produccion: #15803D;      --mad-produccion-ink: #15803D;
+  --mad-qa: #EAB308;              --mad-qa-ink: #A16207;
+  --mad-desarrollo: #1D4ED8;      --mad-desarrollo-ink: #1D4ED8;
+  --mad-suspendido: #6B7280;      --mad-suspendido-ink: #6B7280;
+  --mad-ink: #15803D;
+
+  --stop-ink: #B91C1C;
+  --stop-tint: #FDECEC;
+  --wait-ink: #1D4ED8;
+  --wait-tint: #EAF0FE;
+
+  --shadow-card: 0 1px 2px rgba(17, 24, 39, .05), 0 8px 24px -14px rgba(17, 24, 39, .18);
+  --shadow-lift: 0 2px 4px rgba(17, 24, 39, .06), 0 18px 40px -18px rgba(17, 24, 39, .3);
+
+  --sidebar: 264px;
+  --font-data: var(--font-mono, 'JetBrains Mono', Consolas, monospace);
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+/* ---- Reset ------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--text-base);
+  line-height: var(--leading-relaxed); -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5 { font-family: var(--font-heading); margin: 0; line-height: var(--leading-tight); }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--work); outline-offset: 3px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* ---- Shell -------------------------------------------------- */
+.shell { display: grid; grid-template-columns: var(--sidebar) 1fr; min-height: 100vh; }
+
+/* ---- Sidebar ------------------------------------------------ */
+.side {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  background: var(--surface); border-right: 1px solid var(--line);
+  padding: var(--space-6) var(--space-4); display: flex; flex-direction: column; gap: var(--space-6);
+}
+.side-brand { display: flex; align-items: center; gap: var(--space-3); padding: 0 var(--space-2); }
+.side-brand img { width: 32px; height: 32px; flex: none; object-fit: contain; }
+.logo-oscuro { display: none; }
+:root[data-theme='dark'] .logo-claro { display: none; }
+:root[data-theme='dark'] .logo-oscuro { display: block; }
+.side-brand b { font-family: var(--font-heading); font-weight: var(--font-bold); font-size: var(--text-sm); display: block; }
+.side-brand small { color: var(--ink-3); font-size: var(--text-xs); }
+
+.side-group + .side-group { margin-top: var(--space-2); }
+.side-group > .tag { display: block; padding: 0 var(--space-2) var(--space-2); }
+
+.side-link {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--ink-2);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.side-link:hover { background: var(--surface-sunken); color: var(--ink); }
+.side-link.active { background: var(--work-tint); color: var(--work-ink); font-weight: var(--font-semibold); }
+.side-link .ico { width: 18px; text-align: center; flex: none; color: var(--ink-3); }
+.side-link.active .ico { color: var(--work-ink); }
+
+/* Componentes del producto abierto, anidados bajo él */
+.side-sub { margin: var(--space-1) 0 var(--space-3) var(--space-5); border-left: 1px solid var(--line); padding-left: var(--space-2); }
+.side-sub .side-link { font-size: var(--text-xs); padding: var(--space-1) var(--space-2); gap: var(--space-2); }
+.side-sub .pip { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+
+.side-foot { margin-top: auto; padding: var(--space-4) var(--space-2) 0; border-top: 1px solid var(--line); }
+.side-foot .tag { display: block; margin-bottom: var(--space-2); }
+
+/* ---- Topbar y contenido ------------------------------------- */
+.main { min-width: 0; display: flex; flex-direction: column; }
+.topbar {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4) var(--space-8);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+}
+.crumbs { display: flex; gap: var(--space-2); align-items: center; font-size: var(--text-sm); color: var(--ink-3); flex-wrap: wrap; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.topbar .acciones { margin-left: auto; display: flex; gap: var(--space-2); align-items: center; }
+.btn-ghost {
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-full);
+  border: 1px solid var(--line-strong); font-size: var(--text-xs); color: var(--ink-2); background: var(--surface);
+}
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); }
+
+.view { padding: var(--space-8); max-width: 1280px; width: 100%; }
+
+/* ---- Cabecera de vista -------------------------------------- */
+.view-head { margin-bottom: var(--space-8); }
+.view-head h1 { font-size: var(--text-3xl); font-weight: var(--font-extrabold); letter-spacing: -0.025em; }
+.view-head .lead { margin-top: var(--space-3); color: var(--ink-2); max-width: 76ch; }
+.view-head .meta { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-5); }
+
+.eyebrow {
+  display: inline-block; font-family: var(--font-data); font-size: 11px;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  color: var(--work-ink); font-weight: var(--font-semibold); margin-bottom: var(--space-2);
+}
+.tag {
+  font-family: var(--font-data); font-size: 10px; font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--ink-3);
+}
+
+/* ---- Badges ------------------------------------------------- */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 3px var(--space-3); border-radius: var(--radius-full);
+  font-size: var(--text-xs); font-weight: var(--font-semibold);
+  border: 1px solid var(--line-strong); color: var(--ink-2); background: var(--surface); white-space: nowrap;
+}
+.badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+.badge.is-produccion { color: var(--mad-produccion-ink); border-color: color-mix(in srgb, var(--mad-produccion) 40%, transparent); background: color-mix(in srgb, var(--mad-produccion) 9%, var(--surface)); }
+.badge.is-qa { color: var(--mad-qa-ink); border-color: color-mix(in srgb, var(--mad-qa) 55%, transparent); background: color-mix(in srgb, var(--mad-qa) 16%, var(--surface)); }
+.badge.is-qa .dot { background: var(--mad-qa); }
+.badge.is-desarrollo { color: var(--mad-desarrollo-ink); border-color: color-mix(in srgb, var(--mad-desarrollo) 40%, transparent); background: color-mix(in srgb, var(--mad-desarrollo) 9%, var(--surface)); }
+.badge.is-suspendido { color: var(--mad-suspendido-ink); border-color: var(--line-strong); background: var(--surface-sunken); }
+.badge.is-ia { color: var(--ia-chip-ink); border-color: var(--ia-chip-bg); background: var(--ia-chip-bg); font-weight: var(--font-bold); }
+.badge.is-stop { color: var(--stop-ink); border-color: color-mix(in srgb, var(--stop-ink) 30%, transparent); background: var(--stop-tint); }
+.badge.is-wait { color: var(--wait-ink); border-color: color-mix(in srgb, var(--wait-ink) 26%, transparent); background: var(--wait-tint); }
+
+@media (max-width: 1020px) {
+  .shell { grid-template-columns: 1fr; }
+  .side {
+    position: static; height: auto; flex-direction: row; align-items: center; overflow-x: auto;
+    border-right: 0; border-bottom: 1px solid var(--line); gap: var(--space-4); padding: var(--space-3) var(--space-4);
+  }
+  .side-group, .side-foot { display: flex; align-items: center; gap: var(--space-2); margin: 0; padding: 0; border: 0; }
+  .side-group > .tag, .side-foot .tag, .side-sub, .side-brand small { display: none; }
+  .side-brand { flex: none; }
+  .side-link { white-space: nowrap; }
+  .view, .topbar { padding-inline: var(--space-4); }
+}

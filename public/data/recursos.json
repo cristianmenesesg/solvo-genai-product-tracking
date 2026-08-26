@@ -1,0 +1,626 @@
+{
+  "corte": "2026-07-16",
+  "recursos": [
+    {
+      "titulo": "Container Registry compartido",
+      "tipo": "Registro de imágenes",
+      "capa": "plataforma",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Storage Account compartido",
+      "tipo": "Almacenamiento de archivos",
+      "capa": "datos",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Red virtual (VNet)",
+      "tipo": "Red privada",
+      "capa": "plataforma",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "email-cold-outreach",
+        "talent-pool-scraping",
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Private Endpoint de PostgreSQL",
+      "tipo": "Acceso privado",
+      "capa": "plataforma",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "NIC del Private Endpoint de PostgreSQL",
+      "tipo": "Interfaz de red",
+      "capa": "plataforma",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Identidad y single sign-on",
+      "tipo": "Identidad corporativa",
+      "capa": "plataforma",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "talent-pool-scraping",
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "PostgreSQL centralizada — Dev",
+      "tipo": "Base de datos",
+      "capa": "datos",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "PostgreSQL centralizada — QA",
+      "tipo": "Base de datos",
+      "capa": "datos",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "PostgreSQL centralizada — Pre/Prod",
+      "tipo": "Base de datos",
+      "capa": "datos",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform",
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "VM n8n compartida — Dev",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "VM n8n compartida — QA",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings",
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "VM n8n dedicada — Current Client US Openings",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings"
+      ]
+    },
+    {
+      "titulo": "VM n8n dedicada — General US Openings",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "general-us-openings"
+      ]
+    },
+    {
+      "titulo": "VM n8n dedicada — Company Decision Maker",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "company-decision-maker"
+      ]
+    },
+    {
+      "titulo": "VM n8n dedicada — Email Cold Outreach",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Landing de Agendamiento (Dev)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "dev",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container App API — Landing de Agendamiento (Dev)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Landing de Agendamiento (Dev)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Landing de Agendamiento (QA)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "qa",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container App API — Landing de Agendamiento (QA)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Landing de Agendamiento (QA)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Landing de Agendamiento (Prod)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container App API — Landing de Agendamiento (Prod)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Landing de Agendamiento (Prod)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Front Door + WAF — Landing de Agendamiento (Prod)",
+      "tipo": "Protección perimetral",
+      "capa": "plataforma",
+      "ambiente": "prod",
+      "estado": "Planificado",
+      "proyectos": [
+        "email-cold-outreach"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Recruiter Platform (Dev)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Container App API — Solvo Recruiter Platform (Dev)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Solvo Recruiter Platform (Dev)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Recruiter Platform (QA)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Container App API — Solvo Recruiter Platform (QA)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Solvo Recruiter Platform (QA)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "VM n8n dedicada — scraping (Prod)",
+      "tipo": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Recruiter Platform (Prod)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Container App API — Solvo Recruiter Platform (Prod)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Static Web App — Solvo Recruiter Platform (Prod)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Static Web App (Frontend) — Solvo Platform (Dev)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container App (Backend) — Solvo Platform (Dev)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Platform (Dev)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Key Vault — Solvo Platform (Dev)",
+      "tipo": "Bóveda de secretos",
+      "capa": "plataforma",
+      "ambiente": "dev",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container App (Backend) — Solvo Platform (QA)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Platform (QA)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Key Vault — Solvo Platform (QA)",
+      "tipo": "Bóveda de secretos",
+      "capa": "plataforma",
+      "ambiente": "qa",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Static Web App (Frontend) — Solvo Platform (QA)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "qa",
+      "estado": "Por confirmar",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Static Web App (Frontend) — Solvo Platform (Prod)",
+      "tipo": "Sitio web",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container App (Backend) — Solvo Platform (Prod)",
+      "tipo": "Servicio de aplicación",
+      "capa": "aplicacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Container Apps Environment — Solvo Platform (Prod)",
+      "tipo": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Key Vault — Solvo Platform (Prod)",
+      "tipo": "Bóveda de secretos",
+      "capa": "plataforma",
+      "ambiente": "prod",
+      "estado": "Activo",
+      "proyectos": [
+        "solvo-platform"
+      ]
+    },
+    {
+      "titulo": "Oxylabs — scraping",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings",
+        "general-us-openings",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Apify — scraping LinkedIn",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings"
+      ]
+    },
+    {
+      "titulo": "OpenAI — LLM",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "general-us-openings",
+        "company-decision-maker",
+        "email-cold-outreach",
+        "ai-avatar",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Google Custom Search Engine",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Suspendido",
+      "proyectos": []
+    },
+    {
+      "titulo": "Brevo — email transaccional",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "current-client-us-openings",
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Apollo.io — enriquecimiento",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "company-decision-maker",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "Bright Data — web scraping (MCP)",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "company-decision-maker"
+      ]
+    },
+    {
+      "titulo": "Hunter.io — verificación de email",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "company-decision-maker"
+      ]
+    },
+    {
+      "titulo": "Microsoft Graph API",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Activo",
+      "proyectos": [
+        "email-cold-outreach",
+        "talent-pool-scraping"
+      ]
+    },
+    {
+      "titulo": "HeyGen — avatares de video IA",
+      "tipo": "Servicio externo",
+      "capa": "externo",
+      "ambiente": "compartido",
+      "estado": "Suspendido",
+      "proyectos": [
+        "ai-avatar"
+      ]
+    }
+  ]
+}

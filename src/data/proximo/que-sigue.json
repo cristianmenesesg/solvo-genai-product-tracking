@@ -1,0 +1,74 @@
+{
+  "items": [
+    {
+      "id": "odo-prod",
+      "componente": "on-demand-openings",
+      "tipo": "despliegue",
+      "estado": "listo",
+      "titulo": "Salida a producción de la búsqueda por demanda",
+      "detalle": "Los comerciales van a poder pedir las vacantes de una empresa puntual desde la plataforma, revisarlas y decidir si se guardan.",
+      "cuando": "Sale a producción en el sprint en curso"
+    },
+    {
+      "id": "res-prod",
+      "componente": "reporte-estatus",
+      "tipo": "despliegue",
+      "estado": "listo",
+      "titulo": "Salida a producción del reporte de estatus",
+      "detalle": "El equipo empieza a recibir cada lunes qué produjo el ecosistema la semana anterior, qué pipeline se detuvo y cuánto consumió cada proveedor.",
+      "cuando": "Sale a producción en el sprint en curso"
+    },
+    {
+      "id": "ftps-prod",
+      "componente": "talent-pool-scraping",
+      "tipo": "despliegue",
+      "estado": "listo",
+      "titulo": "Salida a producción del pipeline de talento",
+      "detalle": "El pool de candidatos abiertos pasa a mantenerse solo, con la cobertura y la cadencia que fije el administrador.",
+      "cuando": "Sale a producción en el sprint en curso"
+    },
+    {
+      "id": "srp-prod",
+      "componente": "solvo-recruiter-platform",
+      "tipo": "despliegue",
+      "estado": "listo",
+      "titulo": "Salida a producción de la app de reclutadores",
+      "detalle": "Los reclutadores empiezan a buscar y contactar candidatos desde la plataforma, sin depender de consultas a la base.",
+      "cuando": "Sale a producción en el sprint en curso"
+    },
+    {
+      "id": "cdm-filtro-decisores",
+      "componente": "company-decision-maker",
+      "tipo": "cambio",
+      "estado": "construccion",
+      "titulo": "Ajuste al filtro de tomadores de decisión",
+      "detalle": "Cambia el criterio con el que el pipeline decide a quién considerar decisor de una empresa, para que los contactos que llegan al outreach se ajusten a lo que pidió el stakeholder."
+    },
+    {
+      "id": "spl-registro-exportaciones",
+      "componente": "solvo-platform",
+      "tipo": "funcion",
+      "estado": "construccion",
+      "titulo": "Registro de las exportaciones de datos",
+      "detalle": "Los supervisores van a poder dejar registrado cuándo exportan datos, de modo que las descargas de empresas y vacantes queden trazadas como el resto de las acciones de la plataforma."
+    },
+    {
+      "id": "cco-vendedor-unico",
+      "componente": "current-client-us-openings",
+      "tipo": "cambio",
+      "estado": "planificado",
+      "titulo": "Activación con un solo vendedor",
+      "detalle": "En lugar de repartir los hallazgos entre todos los vendedores asignados, el monitoreo semanal se activa integrando un único vendedor. Es el cambio previo a encender el pipeline en productivo.",
+      "bloqueado": "Falta cerrar el listado de clientes que quedan a cargo de ese vendedor."
+    },
+    {
+      "id": "landing-release-2",
+      "componente": "landing-agendamiento",
+      "tipo": "funcion",
+      "estado": "construccion",
+      "titulo": "Vitrina de talento en la landing",
+      "detalle": "El prospecto que llega a agendar va a ver además un perfil de talento asociado a la vacante que su empresa está publicando, con su medición y su administración propias.",
+      "cuando": "Sale a producción en el sprint siguiente"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "resumen": "El producto de reclutamiento comparte la base de datos y la identidad del ecosistema, y suma lo suyo: su propia plataforma web y el pipeline que mantiene el pool de talento.",
+  "nodes": [
+    {
+      "id": "web-reclutador",
+      "nombre": "Plataforma web de reclutadores",
+      "capa": "aplicacion",
+      "tecnologia": "Azure Static Web App"
+    },
+    {
+      "id": "api-reclutador",
+      "nombre": "Servicios de la plataforma de reclutadores",
+      "capa": "aplicacion",
+      "tecnologia": "FastAPI · Azure Container App"
+    },
+    {
+      "id": "orquestador",
+      "nombre": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "tecnologia": "n8n · Azure Virtual Machine"
+    },
+    {
+      "id": "entorno-contenedores",
+      "nombre": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "tecnologia": "Azure Container Apps Environment"
+    },
+    {
+      "id": "bd",
+      "nombre": "Base de datos del ecosistema",
+      "capa": "datos",
+      "tecnologia": "Azure Database for PostgreSQL Flexible Server · compartida con el resto del ecosistema"
+    },
+    {
+      "id": "red-profesional",
+      "nombre": "Red profesional",
+      "capa": "externo",
+      "tecnologia": "LinkedIn · scraping vía Oxylabs"
+    },
+    {
+      "id": "correo",
+      "nombre": "Plataforma de envío de correo",
+      "capa": "externo",
+      "tecnologia": "Brevo"
+    },
+    {
+      "id": "identidad",
+      "nombre": "Identidad corporativa",
+      "capa": "plataforma",
+      "tecnologia": "Microsoft Entra ID · SSO y grupos de seguridad"
+    },
+    {
+      "id": "secretos",
+      "nombre": "Bóveda de secretos",
+      "capa": "plataforma",
+      "tecnologia": "Azure Key Vault"
+    },
+    {
+      "id": "registro",
+      "nombre": "Registro de imágenes",
+      "capa": "plataforma",
+      "tecnologia": "Azure Container Registry"
+    }
+  ],
+  "edges": [
+    {
+      "from": "web-reclutador",
+      "to": "api-reclutador"
+    },
+    {
+      "from": "api-reclutador",
+      "to": "bd"
+    },
+    {
+      "from": "api-reclutador",
+      "to": "orquestador"
+    },
+    {
+      "from": "orquestador",
+      "to": "red-profesional"
+    },
+    {
+      "from": "orquestador",
+      "to": "bd"
+    },
+    {
+      "from": "orquestador",
+      "to": "correo"
+    },
+    {
+      "from": "orquestador",
+      "to": "secretos"
+    },
+    {
+      "from": "web-reclutador",
+      "to": "identidad"
+    },
+    {
+      "from": "api-reclutador",
+      "to": "entorno-contenedores"
+    },
+    {
+      "from": "entorno-contenedores",
+      "to": "registro"
+    }
+  ]
+}

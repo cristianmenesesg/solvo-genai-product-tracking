@@ -1,0 +1,234 @@
+{
+  "flujo": {
+    "titulo": "Del clic en el email a la reunión confirmada",
+    "resultado": "El prospecto que abre el email llega a una página que ya sabe quién es, elige un horario real y queda con la reunión creada y confirmada por correo — y todo su recorrido queda medido, paso por paso.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Elegir qué talento mostrarle a esta empresa",
+        "nota": "En el ciclo de envío, antes del email",
+        "quePasa": "Antes de que salga el email, un modelo decide qué perfil del pool de talento tiene sentido mostrarle a ese prospecto en la landing.",
+        "entra": [
+          "Hasta tres vacantes remotamente viables de la empresa",
+          "El catálogo de perfiles de talento habilitados para la vitrina"
+        ],
+        "sale": [
+          "El perfil de talento asociado al prospecto, o ninguno"
+        ],
+        "acciones": [
+          "Evalúa vacantes y perfiles juntos, en una sola pasada",
+          "Conserva la correspondencia de la vacante con mayor remuneración declarada"
+        ],
+        "reglas": [
+          "Un perfil devuelto que no estaba en el catálogo entregado se descarta",
+          "Dos vacantes que corresponden al mismo perfil dejan a la empresa con un único perfil",
+          "Sin correspondencias o sin perfiles habilitados, la empresa queda sin perfil y el envío continúa igual"
+        ],
+        "trabajaCon": [
+          "Modelo de lenguaje",
+          "Base del ecosistema"
+        ],
+        "ia": {
+          "rol": "Emparejador de vacante con perfil de talento",
+          "recibe": [
+            "El título y la descripción de las vacantes viables de la empresa",
+            "El catálogo completo de perfiles habilitados para la vitrina, con su título, sus términos de búsqueda y su currículo resumido"
+          ],
+          "instruccion": "Evaluar las vacantes de esta empresa contra el catálogo de perfiles disponibles y devolver las correspondencias entre vacante y perfil, ordenadas de mayor a menor valor comercial. Cada correspondencia debe identificar el perfil y la vacante que la origina, y los perfiles devueltos tienen que pertenecer al catálogo que se entregó. Si ninguna vacante corresponde a un perfil, devolver una lista vacía.",
+          "produce": [
+            "correspondencias vacante–perfil ordenadas por valor comercial"
+          ],
+          "noDecide": [
+            "A quién se le escribe ni qué dice el email: la asociación no altera la selección de prospectos ni el copy",
+            "Qué perfiles existen: el catálogo lo administra una persona desde la plataforma de reclutadores",
+            "Qué pasa si falla: ante una respuesta inválida la empresa queda sin perfil y el correo sale igual, sin reintentar más de una vez"
+          ]
+        }
+      },
+      {
+        "id": "p2",
+        "titulo": "Reconocer al prospecto que llega",
+        "quePasa": "El enlace del email trae consigo quién es el prospecto, así que la página no le pide que se identifique ni que se registre.",
+        "entra": [
+          "La visita del prospecto desde el botón del email, con su identidad asociada"
+        ],
+        "sale": [
+          "La landing abierta y ya personalizada para esa persona"
+        ],
+        "acciones": [
+          "Identifica al prospecto y a su empresa al momento de la visita",
+          "Registra la llegada como parte de su recorrido"
+        ],
+        "reglas": [
+          "Si alguien llega sin identidad en el enlace, la visita se cuenta igual, como anónima"
+        ],
+        "trabajaCon": [
+          "Landing de agendamiento",
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Mostrar horarios que existen de verdad",
+        "quePasa": "La disponibilidad se consulta contra la agenda real, no contra una grilla fija: el prospecto solo ve horarios que existen.",
+        "entra": [
+          "La agenda de la cuenta de agendamiento"
+        ],
+        "sale": [
+          "Los horarios disponibles, listos para elegir"
+        ],
+        "acciones": [
+          "Consulta los horarios realmente disponibles",
+          "Los presenta para que el prospecto elija día y hora",
+          "Registra qué disponibilidad se le mostró"
+        ],
+        "reglas": [
+          "Se registra si vio horarios o una agenda vacía: distingue al que no quiso agendar del que no encontró cupo"
+        ],
+        "trabajaCon": [
+          "Agenda corporativa",
+          "Landing de agendamiento"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Crear la reunión y confirmarla",
+        "quePasa": "Al confirmar, la reunión existe: con su enlace de videollamada, su invitación de calendario y su correo de confirmación.",
+        "entra": [
+          "El horario elegido y la identidad del prospecto"
+        ],
+        "sale": [
+          "La reunión creada y confirmada por correo",
+          "La invitación de calendario, descargable desde la página de confirmación"
+        ],
+        "acciones": [
+          "Crea la reunión en la agenda con su enlace de videollamada",
+          "Envía al prospecto un correo de confirmación con su nombre y los detalles de la reunión",
+          "Avisa internamente para que un administrador la reasigne a un comercial disponible"
+        ],
+        "reglas": [
+          "La reserva se registra del lado del servidor: es la medida válida de conversión aunque el navegador del prospecto pierda los eventos"
+        ],
+        "trabajaCon": [
+          "Agenda corporativa",
+          "Plataforma de envío de correo"
+        ]
+      },
+      {
+        "id": "p5",
+        "titulo": "Emitir cada paso del recorrido",
+        "quePasa": "La landing va dejando registrado lo que hace el prospecto a medida que avanza, para que el embudo pueda medirse después. El análisis y el reporte semanal viven en un componente aparte.",
+        "entra": [
+          "Lo que ocurre durante la visita del prospecto"
+        ],
+        "sale": [
+          "Los eventos de la visita registrados y atados al prospecto y a su empresa"
+        ],
+        "acciones": [
+          "Emite la llegada del prospecto, la disponibilidad que se le mostró y el horario que eligió",
+          "Emite los errores visibles que llegue a encontrar",
+          "Registra la reserva confirmada desde el servidor al crear la reunión"
+        ],
+        "reglas": [
+          "La reserva se registra del lado del servidor: es la medida válida de conversión aunque el navegador del prospecto pierda los eventos"
+        ],
+        "trabajaCon": [
+          "Landing de agendamiento",
+          "Base del ecosistema"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p1",
+        "label": "El perfil asociado viaja dentro del email de",
+        "componente": "email-cold-outreach"
+      },
+      {
+        "from": "p1",
+        "label": "Los perfiles de la vitrina se administran en",
+        "componente": "solvo-recruiter-platform"
+      },
+      {
+        "from": "p5",
+        "label": "Los eventos alimentan el",
+        "componente": "reporte-funnel"
+      }
+    ]
+  },
+  "paginas": [
+    {
+      "id": "landing",
+      "arquetipo": "detail",
+      "nombre": "Landing de agendamiento",
+      "proposito": "La página a la que llega el prospecto desde el email, donde elige cuándo quiere hablar.",
+      "contenido": [
+        "La propuesta de Solvo presentada para ese prospecto en particular",
+        "La vitrina con el perfil de talento asociado a la vacante que esa empresa está publicando",
+        "Los horarios realmente disponibles en la agenda"
+      ],
+      "funciones": [
+        "Elegir día y hora entre la disponibilidad real",
+        "Confirmar la reunión sin tener que registrarse ni identificarse: el enlace del email ya trae quién es"
+      ],
+      "roles": "El prospecto que recibió el cold email. Es una página pública, sin login.",
+      "origenDatos": [
+        "La identidad del prospecto, que viaja en el enlace del email",
+        "La agenda de la cuenta de agendamiento",
+        "El perfil de talento asociado a la empresa"
+      ]
+    },
+    {
+      "id": "confirmacion",
+      "arquetipo": "form",
+      "nombre": "Página de confirmación",
+      "proposito": "Le cierra el círculo al prospecto: la reunión quedó agendada y acá están sus datos.",
+      "contenido": [
+        "La fecha, el horario y la zona horaria de la reunión creada",
+        "El enlace de la videollamada"
+      ],
+      "funciones": [
+        "Descargar la invitación de calendario"
+      ],
+      "roles": "El prospecto que acaba de confirmar.",
+      "origenDatos": [
+        "La reunión recién creada en la agenda"
+      ]
+    },
+    {
+      "id": "admin-showcase",
+      "arquetipo": "table",
+      "nombre": "Administración de la vitrina",
+      "proposito": "Define qué perfiles de talento pueden aparecer frente a un prospecto.",
+      "contenido": [
+        "El catálogo de perfiles de talento con su estado en la vitrina",
+        "El currículo resumido de cada perfil, que es lo que se evalúa y lo que se muestra"
+      ],
+      "funciones": [
+        "Habilitar o deshabilitar un perfil para la vitrina",
+        "Mantener el currículo resumido de cada perfil"
+      ],
+      "roles": "Administrador. Vive en la plataforma de reclutadores.",
+      "origenDatos": [
+        "El pool de talento y los currículos de sus perfiles"
+      ]
+    }
+  ],
+  "datos": {
+    "entra": [
+      "La identidad del prospecto que viaja en el enlace del email",
+      "La disponibilidad real de la agenda",
+      "El catálogo de perfiles de talento habilitados"
+    ],
+    "procesa": [
+      "El emparejamiento con IA entre la vacante del prospecto y un perfil del pool",
+      "La creación de la reunión con su enlace de videollamada",
+      "La emisión de cada paso del recorrido, con la reserva registrada del lado del servidor"
+    ],
+    "produce": [
+      "Reuniones agendadas y confirmadas por correo, con invitación de calendario",
+      "Un aviso interno para reasignar la reunión a un comercial",
+      "Los eventos del recorrido que alimentan la medición del embudo"
+    ]
+  }
+}

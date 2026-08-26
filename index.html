@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solvo GenAI · Seguimiento de Productos</title>
+    <meta name="description" content="Seguimiento de los productos Solvo GenAI: qué hace cada componente, qué datos mueve, dónde actúa la IA, en qué estado está y qué sigue." />
+    <link rel="icon" type="image/png" href="/design-system/solvo-genai/logos/SolvoGenAI_Icon_Color.png" />
+    <!-- Tokens y logos del brand Solvo GenAI, vendorizados por scripts/prep-data.mjs -->
+    <link rel="stylesheet" href="/design-system/solvo-genai/tokens.css" />
+    <script>
+      // Tema antes del primer paint: evita el flash de claro en dark mode.
+      try {
+        var t = localStorage.getItem('theme')
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+{
+  "flujo": {
+    "titulo": "La medición del embudo, de punta a punta",
+    "resultado": "Cada semana el equipo recibe dónde se pierden los prospectos: el embudo completo con su paso de mayor caída, la salud del recorrido y los tiempos, con el detalle de eventos adjunto. Es el baseline contra el que se compara cualquier mejora de la landing.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Capturar cada paso del recorrido",
+        "quePasa": "Todo lo que hace el prospecto —desde que recibe el correo hasta que confirma la reunión— queda registrado en un almacén propio, sin herramientas de analítica de terceros. Cada evento queda atado a la persona y a su empresa.",
+        "entra": [
+          "Los avisos de entrega, apertura y clic que reporta la plataforma de correo",
+          "Lo que ocurre en la landing: visita, disponibilidad mostrada, horario elegido y errores visibles",
+          "La reserva creada del lado del servidor"
+        ],
+        "sale": [
+          "Los eventos del recorrido guardados y atados al prospecto y a su empresa"
+        ],
+        "acciones": [
+          "Recibe y normaliza los avisos de la plataforma de correo",
+          "Registra los eventos que emite la landing a medida que el prospecto avanza",
+          "Registra la reserva confirmada desde el servidor, al crear la reunión"
+        ],
+        "reglas": [
+          "La reserva se escribe del lado del servidor, no del navegador: la conversión no se pierde aunque el prospecto tenga un bloqueador",
+          "Una visita sin identidad en el enlace se cuenta igual, marcada como anónima",
+          "Los correos de confirmación posteriores a la reserva quedan fuera de la ingesta: no son parte del embudo"
+        ],
+        "trabajaCon": ["Plataforma de envío de correo", "Landing de agendamiento", "Base del ecosistema"]
+      },
+      {
+        "id": "p2",
+        "titulo": "Armar el embudo de la semana",
+        "nota": "Semanal · sobre los 7 días cerrados",
+        "quePasa": "Una vez por semana el sistema reconstruye el embudo de siete pasos y señala en cuál se pierde más gente. Ese es el dato que dice dónde conviene intervenir.",
+        "entra": [
+          "Los eventos de los últimos 7 días cerrados",
+          "Los 7 días previos, solo para la comparativa"
+        ],
+        "sale": [
+          "El embudo de siete pasos con su paso de mayor caída",
+          "Los cuatro indicadores de cabecera con su variación"
+        ],
+        "acciones": [
+          "Cuenta los cuatro indicadores de cabecera: correos entregados, visitas, visitas con horario elegido y reservas confirmadas",
+          "Reconstruye el embudo desde el correo entregado hasta la reserva confirmada",
+          "Calcula en cada paso el porcentaje sobre el paso anterior y sobre los correos entregados",
+          "Identifica el paso donde se pierde más gente"
+        ],
+        "reglas": [
+          "El embudo se cuenta por contacto distinto, no por evento: una misma persona no infla el conteo",
+          "Solo entran los eventos de este embudo; la estructura de datos sirve a otros embudos sin rehacerse"
+        ],
+        "trabajaCon": ["Base del ecosistema"]
+      },
+      {
+        "id": "p3",
+        "titulo": "Medir la salud del recorrido y los tiempos",
+        "quePasa": "Además de cuántos avanzan, el reporte mide por qué se caen: si vieron un error, si la agenda estaba vacía, si eligieron horario y no confirmaron. Y cuánto tardan en decidirse.",
+        "entra": ["Los eventos del período con su detalle"],
+        "sale": [
+          "Los indicadores de salud del recorrido",
+          "Las preferencias de horario, día, camino de reserva y dispositivo",
+          "Los tiempos entre el clic y la reserva"
+        ],
+        "acciones": [
+          "Mide qué proporción de visitas vio un error, y de qué tipo",
+          "Mide qué proporción encontró la agenda vacía",
+          "Mide quiénes eligieron horario pero no llegaron a confirmar",
+          "Calcula la distribución de franja horaria, día de la semana, camino de reserva y tipo de dispositivo",
+          "Calcula el tiempo mediano entre el clic del correo y la reserva, y con cuánta anticipación se reserva"
+        ],
+        "reglas": [
+          "Ver la agenda vacía y no querer agendar son dos abandonos distintos: se miden por separado porque se resuelven distinto"
+        ],
+        "trabajaCon": ["Base del ecosistema"]
+      },
+      {
+        "id": "p4",
+        "titulo": "Enviar el reporte con el detalle adjunto",
+        "quePasa": "Las métricas llegan por correo al equipo operativo, con el detalle de todos los eventos del período adjunto para quien quiera hacer su propio análisis.",
+        "entra": ["Los indicadores del período, ya formateados"],
+        "sale": [
+          "El reporte semanal del embudo en la bandeja del equipo",
+          "El detalle de eventos del período, como archivo adjunto"
+        ],
+        "acciones": [
+          "Compone el correo con la marca de Solvo sobre los valores recibidos",
+          "Adjunta el detalle de los eventos del período",
+          "Envía a los destinatarios configurados en el flujo"
+        ],
+        "reglas": [
+          "El correo no calcula ni formatea: recibe cada valor listo para mostrar, así su diseño puede cambiar sin tocar el flujo",
+          "Un período con muy poco volumen no se omite en silencio: el correo sale con el aviso de que los porcentajes no son representativos"
+        ],
+        "trabajaCon": ["Plataforma de envío de correo"]
+      }
+    ],
+    "ramas": [
+      { "from": "p1", "label": "Los eventos del correo nacen en", "componente": "email-cold-outreach" },
+      { "from": "p1", "label": "Los eventos de la visita y la reserva nacen en", "componente": "landing-agendamiento" }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "Los avisos de entrega, apertura y clic de la plataforma de correo",
+      "Los eventos que emite la landing durante la visita",
+      "La reserva confirmada, registrada del lado del servidor"
+    ],
+    "procesa": [
+      "La unificación de las tres fuentes en una sola estructura por prospecto",
+      "El armado del embudo de siete pasos con su punto de mayor caída",
+      "El cálculo de salud del recorrido, preferencias y tiempos"
+    ],
+    "produce": [
+      "El baseline de conversión del embudo, período a período",
+      "Un reporte semanal por correo con el detalle de eventos adjunto"
+    ]
+  }
+}

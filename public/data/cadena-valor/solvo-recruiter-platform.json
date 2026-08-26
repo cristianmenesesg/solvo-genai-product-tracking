@@ -1,0 +1,29 @@
+{
+  "resumen": "El espejo invertido del proceso comercial: en lugar de buscar quién contrata, busca quién está disponible — y le da al reclutador la herramienta para encontrarlo y contactarlo.",
+  "estaciones": [
+    {
+      "titulo": "Definir qué talento se busca",
+      "detalle": "El administrador fija los perfiles, los países y ciudades, cada cuánto se busca y cuánto tiempo vale un candidato.",
+      "entrega": "La configuración que gobierna todo el pipeline",
+      "componente": "solvo-recruiter-platform"
+    },
+    {
+      "titulo": "Detectar a quienes están disponibles",
+      "detalle": "El pipeline recorre la red profesional buscando la señal de estar abierto a nuevas oportunidades, y captura el dato de contacto.",
+      "entrega": "Un pool de candidatos contactables, sin duplicados",
+      "componente": "talent-pool-scraping"
+    },
+    {
+      "titulo": "Encontrar a la persona indicada",
+      "detalle": "El reclutador busca dentro del pool; lo vencido se re-valida en vivo mientras él trabaja.",
+      "entrega": "Candidatos vigentes que encajan con la búsqueda",
+      "componente": "solvo-recruiter-platform"
+    },
+    {
+      "titulo": "Contactar",
+      "detalle": "Selección múltiple y envío por plantilla, con confirmación previa y auditoría por candidato.",
+      "entrega": "Candidatos contactados y auditados",
+      "componente": "solvo-recruiter-platform"
+    }
+  ]
+}

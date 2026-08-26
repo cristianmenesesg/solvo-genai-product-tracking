@@ -1,0 +1,143 @@
+{
+  "flujo": {
+    "titulo": "La producción de un video personalizado",
+    "resultado": "Un video de 60 segundos con el avatar del comercial hablándole a un prospecto puntual, listo para enviar en menos de doce minutos — con una confirmación humana antes de producirlo.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "El comercial pide el video",
+        "nota": "Por demanda",
+        "quePasa": "Todo arranca con un formulario corto que llena el comercial: a qué empresa, en qué idioma y de parte de quién.",
+        "entra": [
+          "El nombre y el país de la empresa prospecto",
+          "El idioma en que debe hablar el video",
+          "El comercial que lo pide, y opcionalmente el nombre del contacto"
+        ],
+        "sale": [
+          "El pedido validado, listo para investigar"
+        ],
+        "acciones": [
+          "Recibe los datos del formulario"
+        ],
+        "reglas": [
+          "Se verifica que ese comercial tenga su avatar configurado antes de continuar"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Investigar al prospecto",
+        "nota": "30 a 60 segundos",
+        "quePasa": "Antes de escribir el guion, el sistema averigua a quién le va a hablar: qué hace esa empresa, de qué tamaño es y qué le está pasando.",
+        "entra": [
+          "El nombre y el país de la empresa"
+        ],
+        "sale": [
+          "El resumen de investigación de la empresa"
+        ],
+        "acciones": [
+          "Investiga la empresa en la web y en la base de datos comercial",
+          "Reúne su descripción, industria, productos, tamaño y tecnologías",
+          "Detecta noticias recientes y posibles puntos de dolor"
+        ],
+        "trabajaCon": [
+          "Fuentes de datos de empresas"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Que una persona confirme antes de producir",
+        "quePasa": "Ningún video se genera sin que el comercial haya visto lo que el sistema encontró. La confirmación es humana y obligatoria.",
+        "entra": [
+          "El resumen de investigación"
+        ],
+        "sale": [
+          "La confirmación humana, o el cierre del pedido sin producir nada"
+        ],
+        "acciones": [
+          "Envía al comercial un correo con lo encontrado",
+          "Espera su confirmación explícita"
+        ],
+        "reglas": [
+          "Si el comercial rechaza, el proceso termina y no se genera ningún video"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Escribir el guion y grabar el video",
+        "nota": "5 a 10 minutos",
+        "quePasa": "Con la confirmación en mano, un modelo redacta el guion y el avatar entrenado del comercial lo interpreta.",
+        "entra": [
+          "El resumen de investigación confirmado",
+          "El idioma pedido y el avatar del comercial"
+        ],
+        "sale": [
+          "El video terminado, almacenado en el servicio de producción"
+        ],
+        "acciones": [
+          "Redacta un guion de 60 segundos en el idioma elegido",
+          "Produce el video con el avatar entrenado del comercial y su voz sintetizada"
+        ],
+        "trabajaCon": [
+          "Modelo de lenguaje",
+          "Servicio de producción de video"
+        ],
+        "ia": {
+          "rol": "Guionista del video de 60 segundos",
+          "recibe": [
+            "La investigación de la empresa: su negocio, su industria, sus productos y sus noticias recientes",
+            "El idioma pedido y, cuando existe, el nombre del contacto"
+          ],
+          "instruccion": "Escribir un guion de aproximadamente 60 segundos hablados, en el idioma seleccionado, dirigido a esa empresa en particular: apoyarse en lo que la investigación encontró sobre su negocio y su momento actual, y personalizar el saludo con el nombre del contacto cuando se lo haya indicado.",
+          "produce": [
+            "guion de 60 segundos en el idioma pedido"
+          ],
+          "noDecide": [
+            "Si el video se produce: eso lo confirma el comercial en el paso anterior",
+            "La cara y la voz del video: son el avatar entrenado del comercial, no una elección del modelo"
+          ]
+        }
+      },
+      {
+        "id": "p5",
+        "titulo": "Entregar el video al comercial",
+        "quePasa": "El video vuelve por correo al comercial, listo para reenviar al prospecto.",
+        "entra": [
+          "El video terminado"
+        ],
+        "sale": [
+          "El video en manos del comercial, listo para enviar"
+        ],
+        "acciones": [
+          "Envía el video al comercial por correo"
+        ],
+        "reglas": [
+          "Si el archivo es liviano va adjunto; si es pesado se manda un enlace de descarga"
+        ],
+        "trabajaCon": [
+          "Plataforma de envío de correo"
+        ]
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "El pedido del comercial con la empresa, el país y el idioma",
+      "La investigación de la empresa en la web y en fuentes comerciales",
+      "El avatar entrenado del comercial"
+    ],
+    "procesa": [
+      "La investigación automática del prospecto",
+      "La confirmación humana obligatoria antes de producir",
+      "La redacción del guion y la producción del video"
+    ],
+    "produce": [
+      "Un video personalizado de 60 segundos listo para enviar al prospecto"
+    ]
+  }
+}

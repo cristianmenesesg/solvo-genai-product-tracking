@@ -1,0 +1,201 @@
+{
+  "paginas": [
+    {
+      "id": "login",
+      "arquetipo": "auth",
+      "nombre": "Ingreso",
+      "proposito": "El equipo entra con su cuenta corporativa y la plataforma decide sola qué puede ver cada quien.",
+      "contenido": [
+        "Un único botón de ingreso con la cuenta Microsoft corporativa",
+        "Mensaje de acceso denegado cuando la persona no está registrada como personal de Solvo"
+      ],
+      "funciones": [
+        "Entrar sin escribir contraseña si ya hay una sesión corporativa activa",
+        "Resolver el rol de la persona en cada ingreso a partir de sus grupos de seguridad corporativos",
+        "Cerrar la sesión y volver al ingreso tras 15 minutos de inactividad"
+      ],
+      "roles": "Cualquier persona del equipo con cuenta corporativa. Quien no figure en el listado de personal no entra, y quien no tenga un grupo de seguridad válido tampoco.",
+      "origenDatos": [
+        "Identidad y grupos de seguridad corporativos",
+        "Listado de personal de Solvo"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "arquetipo": "tiles",
+      "nombre": "Tablero de indicadores",
+      "proposito": "Responde de un vistazo cómo va el pipeline comercial, con el alcance que le corresponde a quien mira.",
+      "contenido": [
+        "Indicadores de vacantes: detectadas, contactadas, ganadas y perdidas",
+        "Indicadores de empresas: detectadas, en prospección, en onboarding y perdidas",
+        "El alcance de los números según el rol: la cartera propia o la del equipo completo"
+      ],
+      "funciones": [
+        "Actualizar los indicadores solos cada 5 minutos",
+        "Entrar desde un indicador al listado que lo alimenta"
+      ],
+      "roles": "Comercial y SDR ven los indicadores de sus asignaciones. Coordinador, Supervisor y Administrador ven los del equipo completo.",
+      "origenDatos": [
+        "Vacantes que aportan los pipelines de detección",
+        "Empresas y su etapa de pipeline",
+        "Las asignaciones de cada usuario"
+      ]
+    },
+    {
+      "id": "vacantes",
+      "arquetipo": "list",
+      "nombre": "Vacantes",
+      "proposito": "El listado de todo lo que los pipelines detectaron, con los filtros para llegar a lo que vale la pena trabajar.",
+      "contenido": [
+        "Las vacantes detectadas con su empresa, estado, origen, ubicación y fecha",
+        "Un interruptor de viabilidad remota activo por defecto, que deja a la vista unas 40.000 de las ~150.000 vacantes",
+        "El origen de cada vacante: barrido del mercado, cliente actual, búsqueda por demanda o carga manual"
+      ],
+      "funciones": [
+        "Filtrar por estado, origen, empresa, ubicación, fecha y personas asignadas",
+        "Buscar, ordenar y paginar sobre el total, sin traerse todo al navegador",
+        "Disparar una búsqueda de vacantes por demanda para una empresa puntual",
+        "Exportar el listado a CSV respetando los filtros activos"
+      ],
+      "roles": "Todos ven el listado, pero Comercial y SDR solo ven las vacantes de su cartera. Exportar es de Coordinador, Supervisor y Administrador.",
+      "origenDatos": [
+        "Los pipelines de detección de vacantes: clientes actuales, mercado y por demanda",
+        "Las asignaciones que segmentan la visibilidad"
+      ]
+    },
+    {
+      "id": "detalle-vacante",
+      "arquetipo": "detail",
+      "nombre": "Detalle de vacante",
+      "proposito": "Todo lo que se sabe de una vacante, quién la trabaja y qué pasó con ella.",
+      "contenido": [
+        "Los datos de la vacante y el enlace cruzado a la empresa que la publicó",
+        "La pestaña de seguimiento con el historial de cambios de estado",
+        "La sección de asignación, que indica si viene heredada de la empresa o es directa"
+      ],
+      "funciones": [
+        "Cambiar el estado de la vacante dejando una nota obligatoria y etiquetas opcionales",
+        "Asignar Comercial y SDR desde un único popup, con aviso antes de reasignar o desasignar",
+        "Sobrescribir la asignación heredada de la empresa, o restaurar la herencia",
+        "Editar los campos no estructurales; eliminar con confirmación, o marcar la vacante como perdida si es irrelevante"
+      ],
+      "roles": "Todos los autenticados pueden verla y cambiarle el estado. La asignación la gestionan Coordinador, Supervisor y Administrador; eliminar es de Coordinador y Administrador.",
+      "origenDatos": [
+        "La vacante tal como la trajo su pipeline de origen (contenido de solo lectura)",
+        "El historial de seguimiento que registra el equipo",
+        "La empresa asociada y sus asignaciones"
+      ]
+    },
+    {
+      "id": "empresas",
+      "arquetipo": "list",
+      "nombre": "Empresas",
+      "proposito": "El listado de empresas prospectadas, con los filtros que separan a las que ya están listas para trabajar.",
+      "contenido": [
+        "Las ~5.000 empresas con su tipo de relación, su etapa de pipeline y sus asignados",
+        "Un interruptor de viabilidad remota activo por defecto, que deja a la vista las empresas con vacantes remotas viables"
+      ],
+      "funciones": [
+        "Filtrar por tipo de relación, etapa de pipeline y personas asignadas",
+        "Buscar, ordenar y paginar sobre el total",
+        "Crear una empresa nueva",
+        "Disparar una búsqueda de vacantes por demanda para una empresa del listado",
+        "Exportar a CSV respetando los filtros, con la opción de incluir los contactos en un archivo aparte"
+      ],
+      "roles": "Todos ven el listado, pero Comercial y SDR solo ven las empresas de su cartera. Exportar es de Coordinador, Supervisor y Administrador.",
+      "origenDatos": [
+        "El repositorio de empresas del ecosistema",
+        "El pipeline de research, que aporta el perfil de cada empresa",
+        "Las asignaciones que segmentan la visibilidad"
+      ]
+    },
+    {
+      "id": "detalle-empresa",
+      "arquetipo": "detail",
+      "nombre": "Detalle de empresa",
+      "proposito": "La ficha completa del prospecto: quiénes son, a quién hay que hablarle, qué se hizo y qué están contratando.",
+      "contenido": [
+        "Pestaña general con los datos de la empresa y sus contactos decisores",
+        "Pestaña de research con la propuesta de valor, el sales pitch y las fortalezas detectadas",
+        "Pestaña de seguimiento con el historial del pipeline comercial",
+        "Pestaña de vacantes con lo que esa empresa está publicando",
+        "La sección de asignación con Comercial, SDR y el coordinador que la gestiona"
+      ],
+      "funciones": [
+        "Crear y editar la empresa, sus contactos y su research desde popups, con auditoría automática",
+        "Mandar a investigar una empresa que aún no tiene research, con el resultado disponible en unos minutos",
+        "Buscar sus vacantes por demanda, con la empresa ya preseleccionada",
+        "Cambiar la etapa del pipeline con nota obligatoria y etiquetas opcionales",
+        "Asignar Comercial y SDR; al reasignar la empresa, el cambio baja solo a las vacantes que heredaban de ella",
+        "Eliminar la empresa con confirmación"
+      ],
+      "roles": "Todos los autenticados pueden verla, editarla y mandarla a investigar. La asignación la gestionan Coordinador, Supervisor y Administrador; eliminar es de Coordinador y Administrador.",
+      "origenDatos": [
+        "El repositorio de empresas y contactos del ecosistema",
+        "El pipeline de research de empresas y decisores",
+        "Las vacantes asociadas a la empresa"
+      ]
+    },
+    {
+      "id": "scraping-on-demand",
+      "arquetipo": "search",
+      "nombre": "Búsqueda de vacantes por demanda",
+      "proposito": "El popup donde un comercial pide en el momento las vacantes de una empresa, las revisa y decide si se guardan.",
+      "contenido": [
+        "Un buscador con autocompletado contra el catálogo de empresas",
+        "Distintivos que indican en qué portales se conoce a esa empresa",
+        "El resultado preliminar: hasta diez vacantes con título, fecha de publicación y portal de origen",
+        "El aviso de bloqueo con la fecha de la última búsqueda cuando la empresa se consultó hace poco"
+      ],
+      "funciones": [
+        "Buscar sin guardar nada: el resultado es una vista previa",
+        "Confirmar lo encontrado para que se traiga el detalle completo y se guarde",
+        "Crear la empresa al confirmar, si el nombre buscado no existía",
+        "Quedar disponible desde tres lugares: el listado de vacantes, el de empresas y la ficha de una empresa"
+      ],
+      "roles": "Todos los usuarios autenticados de gestión de empresas.",
+      "origenDatos": [
+        "El pipeline de búsqueda por demanda, que consulta los portales y devuelve la vista previa",
+        "La ventana configurada por el administrador, que define cada cuánto puede repetirse una búsqueda",
+        "El catálogo de empresas del ecosistema"
+      ]
+    },
+    {
+      "id": "administracion",
+      "arquetipo": "table",
+      "nombre": "Administración",
+      "proposito": "El área exclusiva del administrador: quién usa la plataforma y con qué parámetros opera.",
+      "contenido": [
+        "El listado de personal con su rol, su último ingreso y cuántas empresas y vacantes tiene asignadas",
+        "La configuración de la plataforma, con la ventana de búsqueda por demanda expresada en días"
+      ],
+      "funciones": [
+        "Consultar el personal y sus asignaciones, en solo lectura: las altas, bajas y cambios de rol se gestionan en la identidad corporativa",
+        "Editar la ventana de búsqueda por demanda, que rige a la vez cada cuánto puede repetirse una búsqueda y qué tan viejas pueden ser las vacantes que se traen",
+        "Rechazar con aviso los valores fuera de rango"
+      ],
+      "roles": "Solo el Administrador. Para el resto la sección no aparece en el menú y el acceso directo a la ruta se bloquea.",
+      "origenDatos": [
+        "El listado de personal y sus asignaciones",
+        "La configuración vigente de la plataforma, que es la única fuente que consulta cada búsqueda por demanda"
+      ]
+    }
+  ],
+  "datos": {
+    "entra": [
+      "Vacantes que aportan los pipelines de detección",
+      "Empresas, contactos y research del pipeline de investigación",
+      "Identidad y grupos de seguridad corporativos"
+    ],
+    "procesa": [
+      "Filtros de relevancia y de viabilidad remota que enfocan el trabajo",
+      "Asignación de cartera con herencia de empresa a vacante y sobrescritura por caso",
+      "Control de acceso por rol, aplicado del lado del servidor y no evitable desde el navegador"
+    ],
+    "produce": [
+      "Un pipeline comercial con historial auditable",
+      "Indicadores del equipo y de cada cartera",
+      "Exportaciones para las herramientas externas del área"
+    ]
+  }
+}

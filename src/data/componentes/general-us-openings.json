@@ -1,0 +1,145 @@
+{
+  "flujo": {
+    "titulo": "El barrido del mercado de Estados Unidos",
+    "resultado": "Cada vacante del mercado queda guardada con su detalle completo y una clasificación que dice si puede cubrirse con talento remoto — que es lo que reduce las ~150.000 detectadas a las ~40.000 que vale la pena trabajar.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Armar el plan del día",
+        "nota": "Diario · 10 estados por día",
+        "quePasa": "El barrido de los 50 estados no se hace de una vez: se reparte a lo largo de la semana, unos diez estados por día, para no golpear el portal y activar sus bloqueos.",
+        "entra": [
+          "El catálogo de los 50 estados con su día asignado",
+          "Las ciudades principales de cada estado, ordenadas por población",
+          "Los tipos de empleo a consultar"
+        ],
+        "sale": [
+          "La matriz de combinaciones a consultar hoy"
+        ],
+        "acciones": [
+          "Toma los estados que le tocan al día de hoy",
+          "Combina cada estado con sus ciudades principales y cada tipo de empleo",
+          "Reconstruye la matriz de búsquedas del día"
+        ],
+        "reglas": [
+          "La matriz se regenera todos los días; los catálogos de estados, ciudades y tipos de empleo se ajustan aparte"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Recolectar qué se está publicando",
+        "quePasa": "Primera pasada sobre el portal: encontrar qué vacantes existen, sin entrar todavía a leer cada una.",
+        "entra": [
+          "La matriz de combinaciones del día"
+        ],
+        "sale": [
+          "Las vacantes del día identificadas y asociadas a su empresa"
+        ],
+        "acciones": [
+          "Procesa la matriz en lotes repartidos en varios procesos paralelos",
+          "Normaliza cada resultado: título, empresa y ubicación",
+          "Asocia la vacante a su empresa, y crea la empresa si todavía no existía",
+          "Deja cada vacante marcada como pendiente de detalle"
+        ],
+        "reglas": [
+          "El paralelismo está acotado a propósito: acelera el barrido sin activar los bloqueos antibot del portal"
+        ],
+        "trabajaCon": [
+          "Portales de empleo",
+          "Proveedores de scraping",
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "Traer el detalle de cada vacante",
+        "quePasa": "Segunda pasada: entrar a cada vacante pendiente y extraer todo lo que el aviso dice.",
+        "entra": [
+          "Las vacantes pendientes de detalle"
+        ],
+        "sale": [
+          "Las vacantes con su descripción y sus condiciones completas"
+        ],
+        "acciones": [
+          "Obtiene la descripción completa del rol",
+          "Extrae el tipo de empleo y la fecha real de publicación"
+        ],
+        "reglas": [
+          "El rango salarial se extrae solo cuando el aviso lo publica"
+        ],
+        "trabajaCon": [
+          "Portales de empleo",
+          "Proveedores de scraping"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Decidir si es cubrible en remoto y enriquecer el dato",
+        "quePasa": "Dos modelos trabajan en secuencia sobre cada vacante: uno decide si el rol puede cubrirse en remoto, el otro ordena la información que el aviso trae suelta. Esa clasificación es la que reduce las ~150.000 vacantes a las ~40.000 que vale la pena trabajar.",
+        "entra": [
+          "Las vacantes con su descripción completa"
+        ],
+        "sale": [
+          "Cada vacante clasificada, con su detalle enriquecido y disponible para el resto del ecosistema"
+        ],
+        "acciones": [
+          "Clasifica cada vacante como viable o no viable para talento remoto global",
+          "Extrae de la descripción los atributos que el aviso no trae estructurados",
+          "Guarda el resultado y deja la vacante lista para el equipo comercial"
+        ],
+        "reglas": [
+          "La clasificación se guarda con su nivel de confianza, para poder auditarla después"
+        ],
+        "trabajaCon": [
+          "Modelo de lenguaje",
+          "Base del ecosistema"
+        ],
+        "ia": {
+          "rol": "Clasificador de viabilidad remota y extractor de atributos",
+          "recibe": [
+            "La descripción completa del rol tal como la publicó la empresa",
+            "El título, la ubicación y el tipo de empleo de la vacante"
+          ],
+          "instruccion": "Primero, decidir de forma binaria si este rol puede ejecutarse desde fuera de Estados Unidos por talento remoto, y acompañar la decisión con un nivel de confianza que permita auditarla después. Segundo, leer la descripción y extraer los atributos que el aviso no trae ordenados: departamento, nivel de seniority, habilidades requeridas y rango salarial.",
+          "produce": [
+            "viable o no viable",
+            "nivel de confianza",
+            "departamento",
+            "seniority",
+            "habilidades",
+            "rango salarial"
+          ],
+          "noDecide": [
+            "Qué vacantes se buscan: eso lo fija el catálogo de estados, ciudades y tipos de empleo",
+            "Qué se hace con la vacante después: la decisión comercial es del equipo, que ve la clasificación como un filtro, no como una orden"
+          ]
+        }
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p4",
+        "label": "Las vacantes clasificadas alimentan",
+        "componente": "solvo-platform"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "El catálogo de estados, ciudades y tipos de empleo a barrer",
+      "Las vacantes publicadas en el portal de empleo"
+    ],
+    "procesa": [
+      "El barrido repartido en cinco días para no activar bloqueos",
+      "La extracción del detalle completo de cada vacante",
+      "La clasificación de viabilidad remota y el enriquecimiento con IA"
+    ],
+    "produce": [
+      "Vacantes del mercado clasificadas como viables o no viables para talento remoto",
+      "Empresas nuevas incorporadas al repositorio del ecosistema"
+    ]
+  }
+}

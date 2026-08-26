@@ -1,0 +1,185 @@
+{
+  "resumen": "Todo el ecosistema corre sobre Azure, con los servicios externos acotados a lo que cada pipeline necesita. Se nombra la tecnología de cada pieza, no los identificadores de los recursos: el sitio no publica nombres de instancias, grupos de recursos ni dominios.",
+  "nodes": [
+    {
+      "id": "web-comercial",
+      "nombre": "Plataforma web del equipo comercial",
+      "capa": "aplicacion",
+      "tecnologia": "Angular · Azure Static Web App"
+    },
+    {
+      "id": "api-comercial",
+      "nombre": "Servicios de la plataforma comercial",
+      "capa": "aplicacion",
+      "tecnologia": "FastAPI · Azure Container App"
+    },
+    {
+      "id": "landing",
+      "nombre": "Landing de agendamiento",
+      "capa": "aplicacion",
+      "tecnologia": "Azure Static Web App"
+    },
+    {
+      "id": "api-agenda",
+      "nombre": "Servicio de agenda",
+      "capa": "aplicacion",
+      "tecnologia": "FastAPI · Azure Container App · Microsoft Graph"
+    },
+    {
+      "id": "orquestador",
+      "nombre": "Servidor de automatizaciones",
+      "capa": "orquestacion",
+      "tecnologia": "n8n · Azure Virtual Machine dedicada por pipeline en Prod"
+    },
+    {
+      "id": "entorno-contenedores",
+      "nombre": "Entorno de contenedores",
+      "capa": "orquestacion",
+      "tecnologia": "Azure Container Apps Environment"
+    },
+    {
+      "id": "bd",
+      "nombre": "Base de datos del ecosistema",
+      "capa": "datos",
+      "tecnologia": "Azure Database for PostgreSQL Flexible Server · una instancia por ambiente, con schemas separados por proyecto"
+    },
+    {
+      "id": "archivos",
+      "nombre": "Almacenamiento de archivos",
+      "capa": "datos",
+      "tecnologia": "Azure Storage Account · Blob"
+    },
+    {
+      "id": "portales",
+      "nombre": "Portales de empleo",
+      "capa": "externo",
+      "tecnologia": "Indeed y LinkedIn · scraping vía Oxylabs y Apify"
+    },
+    {
+      "id": "datos-empresa",
+      "nombre": "Fuentes de datos de empresas y contactos",
+      "capa": "externo",
+      "tecnologia": "Apollo.io · Bright Data · Hunter"
+    },
+    {
+      "id": "modelo",
+      "nombre": "Modelo de lenguaje",
+      "capa": "externo",
+      "tecnologia": "OpenAI · GPT-4o-mini"
+    },
+    {
+      "id": "correo",
+      "nombre": "Plataforma de envío de correo",
+      "capa": "externo",
+      "tecnologia": "Brevo · envío transaccional y webhook de engagement"
+    },
+    {
+      "id": "identidad",
+      "nombre": "Identidad corporativa",
+      "capa": "plataforma",
+      "tecnologia": "Microsoft Entra ID · SSO y grupos de seguridad"
+    },
+    {
+      "id": "secretos",
+      "nombre": "Bóveda de secretos",
+      "capa": "plataforma",
+      "tecnologia": "Azure Key Vault"
+    },
+    {
+      "id": "red",
+      "nombre": "Red privada y acceso restringido",
+      "capa": "plataforma",
+      "tecnologia": "Azure Virtual Network · Private Endpoint hacia PostgreSQL"
+    },
+    {
+      "id": "perimetro",
+      "nombre": "Protección perimetral",
+      "capa": "plataforma",
+      "tecnologia": "Azure Front Door + WAF · solo en Producción"
+    },
+    {
+      "id": "registro",
+      "nombre": "Registro de imágenes",
+      "capa": "plataforma",
+      "tecnologia": "Azure Container Registry"
+    }
+  ],
+  "edges": [
+    {
+      "from": "web-comercial",
+      "to": "api-comercial"
+    },
+    {
+      "from": "api-comercial",
+      "to": "bd"
+    },
+    {
+      "from": "api-comercial",
+      "to": "orquestador"
+    },
+    {
+      "from": "landing",
+      "to": "api-agenda"
+    },
+    {
+      "from": "api-agenda",
+      "to": "bd"
+    },
+    {
+      "from": "orquestador",
+      "to": "bd"
+    },
+    {
+      "from": "orquestador",
+      "to": "portales"
+    },
+    {
+      "from": "orquestador",
+      "to": "datos-empresa"
+    },
+    {
+      "from": "orquestador",
+      "to": "modelo"
+    },
+    {
+      "from": "orquestador",
+      "to": "correo"
+    },
+    {
+      "from": "orquestador",
+      "to": "secretos"
+    },
+    {
+      "from": "api-comercial",
+      "to": "identidad"
+    },
+    {
+      "from": "web-comercial",
+      "to": "identidad"
+    },
+    {
+      "from": "landing",
+      "to": "perimetro"
+    },
+    {
+      "from": "api-comercial",
+      "to": "red"
+    },
+    {
+      "from": "entorno-contenedores",
+      "to": "registro"
+    },
+    {
+      "from": "api-comercial",
+      "to": "entorno-contenedores"
+    },
+    {
+      "from": "api-agenda",
+      "to": "entorno-contenedores"
+    },
+    {
+      "from": "orquestador",
+      "to": "archivos"
+    }
+  ]
+}

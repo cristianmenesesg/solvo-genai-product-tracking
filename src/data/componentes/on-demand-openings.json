@@ -1,0 +1,165 @@
+{
+  "flujo": {
+    "titulo": "La búsqueda por demanda, en dos fases",
+    "resultado": "Las vacantes vigentes de una empresa puntual quedan disponibles en la plataforma en cuestión de minutos, revisadas por una persona antes de guardarse y sin duplicar lo que ya existía.",
+    "pasos": [
+      {
+        "id": "p1",
+        "titulo": "Un comercial pide las vacantes de una empresa",
+        "nota": "Por demanda",
+        "quePasa": "El pedido nace de un clic de un comercial en la plataforma, no de un horario. Antes de disparar nada, la plataforma comprueba que esa empresa no se haya consultado hace poco.",
+        "entra": [
+          "El nombre de la empresa y sus páginas de portal conocidas",
+          "La ventana vigente configurada por el administrador"
+        ],
+        "sale": [
+          "El pedido de búsqueda en curso, o el aviso de que hay que esperar"
+        ],
+        "acciones": [
+          "La plataforma valida la ventana antes de disparar",
+          "Envía el pedido de búsqueda al pipeline"
+        ],
+        "reglas": [
+          "Si la empresa se consultó dentro de la ventana, se informa el bloqueo con la fecha de la última búsqueda y no se dispara nada"
+        ],
+        "trabajaCon": [
+          "Plataforma web del equipo comercial",
+          "Base del ecosistema"
+        ]
+      },
+      {
+        "id": "p2",
+        "titulo": "Buscar en los portales sin guardar nada",
+        "quePasa": "Esta fase solo mira: su producto es una vista previa. Nada se guarda todavía.",
+        "entra": [
+          "El nombre de la empresa, sus páginas de portal y la ventana"
+        ],
+        "sale": [
+          "Un listado preliminar con título, fecha de publicación y portal de origen de cada vacante"
+        ],
+        "acciones": [
+          "Completa las páginas de portal que falten",
+          "Verifica que la empresa exista en los dos portales",
+          "Lista las vacantes publicadas dentro de la ventana"
+        ],
+        "reglas": [
+          "Se listan hasta diez vacantes por búsqueda",
+          "Se descartan los duplicados entre portales y contra lo que ya está guardado"
+        ],
+        "trabajaCon": [
+          "Portales de empleo",
+          "Proveedores de scraping"
+        ]
+      },
+      {
+        "id": "p3",
+        "titulo": "La persona revisa y decide",
+        "quePasa": "El resultado vuelve a la plataforma y la decisión de guardar es de una persona. Hasta que no confirme, no se persiste nada.",
+        "entra": [
+          "El listado preliminar devuelto por la búsqueda"
+        ],
+        "sale": [
+          "La decisión del comercial: confirmar y guardar, o descartar"
+        ],
+        "acciones": [
+          "Muestra el resultado en la plataforma para que el comercial lo revise"
+        ],
+        "reglas": [
+          "Si la empresa no aparece en los portales o no hay vacantes en la ventana, se informa y la confirmación queda deshabilitada"
+        ],
+        "trabajaCon": [
+          "Plataforma web del equipo comercial"
+        ]
+      },
+      {
+        "id": "p4",
+        "titulo": "Traer el detalle y guardar",
+        "quePasa": "Recién con la confirmación el sistema entra a cada vacante, la evalúa y la guarda asociada a la empresa.",
+        "entra": [
+          "Las vacantes que el comercial aceptó"
+        ],
+        "sale": [
+          "Las vacantes guardadas y visibles en la ficha de la empresa"
+        ],
+        "acciones": [
+          "Obtiene el detalle completo de cada vacante",
+          "Normaliza la información y evalúa su viabilidad remota",
+          "Guarda las vacantes identificadas con su origen por demanda",
+          "Registra el momento de la ejecución"
+        ],
+        "reglas": [
+          "El momento de la ejecución es lo que habilita o bloquea la próxima búsqueda de esa empresa",
+          "Si la extracción de una vacante falla, se conserva el registro con lo que sí se pudo obtener, para no perderlo",
+          "Si la empresa no existía, se crea al confirmar"
+        ],
+        "trabajaCon": [
+          "Portales de empleo",
+          "Modelo de lenguaje",
+          "Base del ecosistema"
+        ],
+        "ia": {
+          "rol": "Evaluador de viabilidad remota de la vacante traída por demanda",
+          "recibe": [
+            "El detalle completo de la vacante tal como la publicó el portal",
+            "El título, la ubicación y las condiciones del rol"
+          ],
+          "instruccion": "Normalizar la información del aviso a la estructura que usa el ecosistema y decidir si el rol puede ejecutarse desde fuera de Estados Unidos por talento remoto, con el mismo criterio que se aplica al barrido general del mercado — de modo que una vacante traída por demanda sea comparable con cualquier otra del repositorio.",
+          "produce": [
+            "viable o no viable",
+            "atributos normalizados de la vacante"
+          ],
+          "noDecide": [
+            "Qué vacantes se guardan: eso ya lo decidió la persona al confirmar la vista previa",
+            "Qué empresas se consultan: el pedido nace de un clic de un comercial"
+          ]
+        }
+      },
+      {
+        "id": "p5",
+        "titulo": "Dejar la ejecución auditada",
+        "quePasa": "Cada búsqueda queda registrada con lo que trajo y lo que consumió, para poder auditarla después.",
+        "entra": [
+          "El resultado de la ejecución completa"
+        ],
+        "sale": [
+          "La ejecución auditada en el punto de observabilidad del ecosistema"
+        ],
+        "acciones": [
+          "Registra el resultado y los conteos de vacantes previsualizadas y guardadas",
+          "Registra el consumo de scraping y de inteligencia artificial de la ejecución"
+        ],
+        "trabajaCon": [
+          "Base del ecosistema"
+        ]
+      }
+    ],
+    "ramas": [
+      {
+        "from": "p1",
+        "label": "El disparo y la vista previa viven en",
+        "componente": "solvo-platform"
+      },
+      {
+        "from": "p4",
+        "label": "Las vacantes guardadas aparecen en",
+        "componente": "solvo-platform"
+      }
+    ]
+  },
+  "datos": {
+    "entra": [
+      "El nombre de la empresa y sus páginas de portal conocidas",
+      "La ventana configurada por el administrador de la plataforma",
+      "Las vacantes publicadas en los portales de empleo"
+    ],
+    "procesa": [
+      "La búsqueda preliminar que no guarda nada hasta que una persona confirma",
+      "La normalización y la evaluación de viabilidad remota con IA",
+      "El registro del momento de la ejecución, que gobierna cuándo puede repetirse"
+    ],
+    "produce": [
+      "Vacantes de una empresa puntual guardadas con su origen por demanda",
+      "Una ejecución auditada con sus conteos y su consumo"
+    ]
+  }
+}
