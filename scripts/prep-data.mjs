@@ -1,14 +1,19 @@
 // ============================================================
 // prep-data.mjs — genera public/ desde src/data/ + el vault.
 //
-// Corre en predev y prebuild. Vercel NO lo corre: consume la public/ commiteada.
+// DOS MODOS, porque Vercel clona el submódulo solo y NO tiene el vault al lado:
 //
-//   1) Vendoriza los tokens del brand Solvo GenAI del vault.
-//   2) Deriva el inventario de recursos ENMASCARADO (allowlist de campos).
-//   3) Copia el contenido de src/data/ a public/data/.
-//   4) Valida la estructura (referencias, vocabularios, completitud).
-//   5) GUARD ANTI-FUGA: escanea todo public/data/ contra patrones sensibles.
-//      Si algo se cuela, aborta el build.
+//   sync (por defecto) — necesita el workspace del vault. Corre en predev.
+//     1) Vendoriza los tokens y los logos del brand Solvo GenAI del vault.
+//     2) Deriva el inventario de recursos ENMASCARADO (allowlist de campos).
+//     3) Copia el contenido de src/data/ a public/data/.
+//     4) Valida la estructura (referencias, vocabularios, completitud).
+//     5) GUARD ANTI-FUGA sobre public/data/.
+//
+//   --verify — NO necesita el vault y NO escribe nada. Corre en prebuild, o sea
+//     también en Vercel: valida la estructura de src/data/ y pasa el guard sobre
+//     la public/ commiteada. Así un identificador filtrado a mano nunca llega a
+//     desplegarse, aunque el sync no pueda correr.
 //
 // El sitio es cliente-facing: nunca publica identificadores reales de
 // infraestructura (nombres Azure, resource groups, grupos de seguridad,
@@ -270,12 +275,24 @@ async function guard() {
 
 // ---- main --------------------------------------------------
 async function main() {
+  const soloVerificar = process.argv.includes('--verify')
+  const comps = todosLosComponentes().length
+
+  if (soloVerificar) {
+    if (!(await exists(PUB_DATA))) {
+      fail('No existe public/data/. La public/ va commiteada: corré `npm run sync` en el workspace del vault y commiteá el resultado.')
+    }
+    await validar([])
+    const n = await guard()
+    console.log(`✓ verify — ${productos.length} productos · ${comps} componentes · ${n} archivos revisados · guard anti-fuga OK`)
+    return
+  }
+
   await vendorTokens()
   const recursos = await derivarRecursos()
   await copiarData()
   await validar(recursos)
   const n = await guard()
-  const comps = todosLosComponentes().length
   console.log(
     `✓ sync — ${productos.length} productos · ${comps} componentes · ${recursos.length} recursos enmascarados · ` +
     `${n} archivos publicados · guard anti-fuga OK`,

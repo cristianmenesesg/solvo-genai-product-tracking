@@ -8,7 +8,7 @@
     "sync": "node scripts/prep-data.mjs",
     "predev": "node scripts/prep-data.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/prep-data.mjs",
+    "prebuild": "node scripts/prep-data.mjs --verify",
     "build": "vite build",
     "preview": "vite preview"
   },

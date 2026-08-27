@@ -24,11 +24,17 @@ Misma convención de repo que [`solvo-genai-prototypes`](../solvo-genai-prototyp
 
 ```bash
 npm install
-npm run sync      # genera public/data/** + tokens del design system (corre el guard anti-fuga)
+npm run sync      # genera public/data/** + tokens y logos del design system (necesita el vault)
 npm run dev       # sync + servidor de desarrollo (localhost:5175)
-npm run build     # build de producción → dist/  (lo que corre Vercel)
+npm run build     # verify + build de producción → dist/  (lo que corre Vercel)
 npm run preview   # sirve dist/ localmente
 ```
+
+**`sync` necesita el vault; `build` no.** Vercel clona este submódulo solo, sin
+`../../shared/` al lado, así que el `prebuild` corre `prep-data.mjs --verify`: valida la
+estructura de `src/data/` y pasa el guard anti-fuga sobre la `public/` commiteada, sin
+escribir nada y sin tocar el vault. Al editar contenido, corré `npm run sync` en el
+workspace y **commiteá la `public/` resultante** — es lo que consume el deploy.
 
 ## Las tres decisiones de presentación
 
@@ -203,4 +209,7 @@ El color nunca es el único canal: todo estado y todo bloque de IA lleva además
 
 Framework **Vite**, build `npm run build`, output `dist/`. `vercel.json` fija una CSP estricta
 (sin scripts inline, sin frames, sin conexiones externas más allá de las fuentes de Google).
-Vercel **no** corre el sync: consume la `public/` ya commiteada.
+
+Vercel **no** corre el sync —no tiene el vault— pero sí corre el **guard anti-fuga** vía
+`prebuild --verify`: un identificador real que alguien edite a mano en `public/` rompe el
+deploy en lugar de publicarse.
